@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>??Title??</title>
+</head>
+<body>
+
+<button id='thebutton'>Click me!</button>
+
+<script src="http://localhost:8001/js/lib/jquery-1.11.0.js"></script>
+<script src="http://localhost:8001/js/lib/underscore-1.4.4.js"></script>
+<script src="http://localhost:8001/js/lib/backbone-1.1.1.js"></script>
+<script src="http://localhost:8001/js/lib/backbone.localStorage-1.1.7.js"></script>
+<script>
+// http://stackoverflow.com/questions/3127429/javascript-this-keyword
+
+
+
+if (true) {
+    console.log ('case 1', this); //window
+}
+
+
+
+
+// ------ case 2 ---------
+var obj2 = {
+    someData: "a string"
+};
+function myFun2() {
+    console.log('case 2', this);   // obj2
+}
+obj2.staticFunction = myFun2;
+obj2.staticFunction();
+
+
+
+// -- -- -- case 3 -- -- 
+var obj3 = {
+    myMethod : function () {
+       console.log('case 3', this) //window   
+    }
+};
+var myFun3 = obj3.myMethod;
+myFun3();
+
+
+
+
+
+
+// -- -- -- case 4 -- -- -- -- -- -- -- 
+function myFun4() {
+    console.log('case 4', this) // window 
+}
+var obj4 = {
+    myMethod : function () {
+        eval("myFun4()");
+    }
+};
+obj4.myMethod();
+
+
+// -- -- -- case 4b -- -- -- -- --
+function myFun4b() {
+	console.log('case 4b', this); // window
+}
+eval('myFun4b()');
+
+
+// -- -- -- case 4c -- -- -- -- -- -- -- 
+var obj4c = {
+    myMethod : function () {
+		console.log('case 4c', this)
+		}
+};
+obj4c.myMethod();
+
+
+
+
+
+
+// -- -- -- case 5-- -- -- -- -- -- 
+function myFun5() {
+    console.log('case 5' , this); // obj5
+}
+var obj5= {
+    someData: "a string" 
+};
+myFun5.call(obj5);
+
+</script>
+</body>
+</html>
+

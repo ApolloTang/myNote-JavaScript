@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>03_masking_ancestry_property</title>
+  <meta name="viewport" content="width=device-width">
+
+<style type="text/css" >
+</style>
+
+
+</head>
+
+<body>
+
+
+
+
+<!--script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script-->
+<script>window.jQuery || document.write('<script src="file:///E:/sys/lib/js/jquery-1.7.1.min.js"><\/script>')</script>
+<script src="file:///E:/sys/lib/js/underscore-1.3.3.js"></script>
+<script src="file:///E:/sys/lib/js/backbone-0.9.2.js"></script>
+<script src="file:///E:/sys/lib/js/safe-console.js"></script>
+<script type="text/javascript">
+console.log('jq directory: file:///E:/sys/js/; jQuery version ' + jQuery().jquery);
+// - - - - - - - - - - - - - -
+
+
+
+console.log('- -  This - - - - - - - - - - - - - - - - - - - - -  - - - - -  ' );
+
+	function SuperType(){ this.property = "super type prop"; 	}
+	SuperType.prototype.getSuperValue = function(){ return this.property; };
+	
+	function SubType(){   this.property ="sub type prop"; 	}
+			old_SubType_prototype = SubType.prototype;  // store this ref in a variable b/c we are going to override it (just in case we need to c what was it b4)
+
+	SubType.prototype = new SuperType(); 	//inherit from SuperType by over writing the prototype of SubType
+
+	var subType = new SubType();
+	console.log('instance of SubType: ', subType);
+
+	var superType = new SuperType();
+	console.log('instance of SuperType: ', superType);
+
+	SubType.prototype.getSubValue   = function (){ return this.property; };	// add method on subType (superType can't see this)
+	SubType.prototype.getSuperValue = function (){ return this.property; };	// masking SuperType.prototype.getSuperValue
+	// note: both method above are assigned after instance subType and superType has been instacntiated
+
+	console.log('subType.getSuperValue: ', subType.getSuperValue(), ' <--try 2 use method on subT 2 read a prop on superT, but prop on sub is read' ); 
+	console.log('subType.getSubValue: ', subType.getSubValue()); // sub type prop
+	console.log('superType.getSuperValue: ', superType.getSuperValue()); // super type prop
+	//console.log('superType.getSubValue: ', superType.getSubValue()); // error <-- superType has no access to property on subType
+
+
+	
+
+
+
+console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ' );
+// - - - - - - - - - - - - - -
+</script>	
+</body>
+
+</html>

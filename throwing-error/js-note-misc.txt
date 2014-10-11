@@ -1,0 +1,1 @@
+The only values that will throw an error when you try to access a property are null and undefined.

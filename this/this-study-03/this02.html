@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>??Title??</title>
+</head>
+<body>
+
+<div class="some-elements">watch me change</div>
+<div class="some-elements">watch me change</div>
+
+<script src="http://localhost:8001/js/lib/jquery-1.11.0.js"></script>
+<script src="http://localhost:8001/js/lib/underscore-1.4.4.js"></script>
+<script src="http://localhost:8001/js/lib/backbone-1.1.1.js"></script>
+<script src="http://localhost:8001/js/lib/backbone.localStorage-1.1.7.js"></script>
+<script>
+// http://stackoverflow.com/questions/3127429/javascript-this-keyword
+
+
+(function(value) {
+ debugger;
+	// this = window
+    this.value = value;
+	var elems = document.getElementsByClassName('some-elements');
+	//for (key in elems) {elems.innerHTML('hello')};
+    for (key in elems) {console.log(key, elems)};
+debugger;
+/*    $('.some-elements').each(
+        function(elt){
+			debugger;
+             elt.innerHTML = this.value;        // uh oh!! possibly undefined
+        }
+    );
+*/
+})(2);
+
+</script>
+</body>
+</html>
+

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>No title</title>
+
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="http://apollotang.com/cdn/lib/css/bootstrap.css">
+  
+    <style type="text/css" >
+        * {margin:0px; padding:0px;}
+        #x-rule {position: absolute; top:0px; left:-50px;}
+    </style>
+
+
+</head>
+
+<body>
+
+    <!-- <div id="x-rule"><img src="http://apollotang.com/cdn/lib/imgs/ruler_x_1083px.gif"></div> -->
+    <div id="message"></div>
+
+
+    <button type="submit" id = "mybtn1" class="btn">1</button>
+
+
+
+<script src="http://code.jquery.com/jquery-1.8.0.js"></script>
+<script src="http://apollotang.com/cdn/lib/js/underscore-1.4.2.js"></script>
+<script src="http://apollotang.com/cdn/lib/js/backbone-0.9.2.js"></script>
+<script src="http://apollotang.com/cdn/lib/js/safe-console.js"></script>
+<script src="http://apollotang.com/cdn//lib/js/_o_/_o_0.0.1.js"></script>
+<!-- script>window.jQuery || document.write('<script src="http://localhost/sy/lib/js/jquery-1.7.1.min.js"><\/script>')</script-->
+
+
+<script type="text/javascript">
+console.log('jQuery version ' + jQuery().jquery);
+// - - - - - - - - - - - - - -
+
+var WelcomeController = function (Greeter) { document.write(Greeter.greet());};
+
+var Injector = {
+    dependencies: {},
+    process: function(targetMethod) {
+        var FN_ARGS = /^function\s*[^\(]*\(\s*([^\)]*)\)/m;
+        var FN_ARG_SPLIT = /,/;
+        var FN_ARG = /^\s*(_?)(\S+?)\1\s*$/;
+        var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
+        var targetMethodText = targetMethod.toString();
+		var getArgsOfMethod = targetMethodText.match(FN_ARGS);
+        var args = getArgsOfMethod[1].split(',');
+        
+        targetMethod.apply(targetMethod, this.getDependencies(args));
+    },
+    getDependencies: function(arr) {
+        var self = this;
+        return arr.map(function(value) {
+            
+            return self.dependencies[value];
+        });            
+    },
+    register: function(name, dependency) {
+        this.dependencies[name] = dependency;
+    }
+
+};
+var RobotGreeter = { greet: function() {   return 'Domo Arigato'; }};
+var OtherGreeter = { greet: function() {   return 'That will do pig.'; }};
+	// Randomly register a different greeter to show that WelcomeController is truly dynamic.
+Injector.register('Greeter', Math.random() > 0.5 ? RobotGreeter : OtherGreeter);
+//Injector.register('caseA', RobotGreeter);
+//Injector.register('caseB', OtherGreeter);
+Injector.process(WelcomeController);
+
+ 
+$('#mybtn1').on('click', function(){            
+});
+
+
+// - - - - - - - - - - - - - -
+</script>	
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+::::
+
+:: remember: undefined == null
+
+    replace:
+
+        if (foo === undefined || foo === null) {
+            //...
+        }
+
+    with this:
+
+        if (foo == null) {
+            //...
+        }
+
+    because:
+
+        undefined == null
+
+    ref:
+        http://james.padolsey.com/javascript/terse-javascript-101-part-1/
+
+
+    Also, NZ said:
+
+        console.log(undefined == null); // true
+        console.log(undefined === null); // false
+
+
+::::
+:: How to check if a variabale contain null value
+
+    you cannot use:
+
+        console.log(typeof null); // "object" because null is an object in js
+
+    work around:
+
+        console.log(value === null);  // true or false
+

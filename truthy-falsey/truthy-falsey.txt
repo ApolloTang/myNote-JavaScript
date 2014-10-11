@@ -1,0 +1,46 @@
+
+
+:: Falsey:    * There are 5 of them *
+
+       Undefined
+       null
+       NaN
+       0 (+0,-0)
+       ""
+       false
+
+
+:: Truthy:
+
+       1
+       !0
+       true
+       Non-premitive == Object (functions, arrays, RegExp, Wrapped Primitive Obj [1]...)
+
+
+[1] example of Wrapped primitive obj:  new Boolean(false)
+
+
+
+:: *REMEMBER*
+
+    ( undefined == null ) is true
+
+
+ ( null      == null )  true
+ ( undefined == null )  true
+ ( false     == null )  false
+ - - - - - - - - - - - - - - -
+ ( null      !== null ) false
+ ( undefined !== null ) true
+ ( false     !== null ) true
+ - - - - - - - - - - - - - - -
+ ( null      != null )  false
+ ( undefined != null )  false
+ ( false     != null )  true
+
+::
+
+
+
+reference http://james.padolsey.com/javascript/truthy-falsey/

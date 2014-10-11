@@ -1,0 +1,11 @@
+arguments object 
+    - penalized performance.
+
+    It is an array-like object, NOT an array object. therefore 
+    lacking many methods available to array object.
+    
+    It is array-like only through its "length" property and 
+    (numeric) "index" property.
+    
+    However you can use Array.prototype.*    
+arguments object

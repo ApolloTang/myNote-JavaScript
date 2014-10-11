@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>01_prototype_chain</title>
+  <meta name="viewport" content="width=device-width">
+
+<style type="text/css" >
+</style>
+
+
+</head>
+
+<body>
+
+
+
+
+<!--script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script-->
+<script>window.jQuery || document.write('<script src="file:///E:/sys/lib/js/jquery-1.7.1.min.js"><\/script>')</script>
+<script src="file:///E:/sys/lib/js/underscore-1.3.3.js"></script>
+<script src="file:///E:/sys/lib/js/backbone-0.9.2.js"></script>
+<script src="file:///E:/sys/lib/js/safe-console.js"></script>
+<script type="text/javascript">
+console.log('jq directory: file:///E:/sys/js/; jQuery version ' + jQuery().jquery);
+// - - - - - - - - - - - - - -
+
+
+
+console.log('- -  This - - - - - - - - - - - - - - - - - - - - -  - - - - -  ' );
+
+	function SuperType(){ this.property = "super type prop"; 	}
+	SuperType.prototype.getSuperValue = function(){ return this.property; };
+	
+	function SubType(){ this.subproperty ="sub type prop"; 	}
+		old_SubType_prototype = SubType.prototype;  // store this ref in a variable b/c we are going to override it 
+
+	//inherit from SuperType by over writing the prototype of SubType
+	SubType.prototype = new SuperType();
+	
+		console.log('SubType.prototype == SuperType.prototype: ', (SubType.prototype == SuperType.prototype) );  // false
+				// false b/c SubType.prototype is its own another object instance 
+	
+	SubType.prototype.getSubValue = function (){ return this.subproperty; };   // add method on subType (superType can't see this)
+	
+		console.log('SubType.prototype: ', SubType.prototype, '!! this is the new Subtype.prototype, it has no ref to constructor !!' );
+		console.log('old_SubType_prototype', old_SubType_prototype, '!! this is the old Subtype.prototype, it has a ref to constructor !!');
+
+
+	var subType = new SubType();
+	console.log('instance of SubType: ', subType);
+
+	var superType = new SuperType();
+	console.log('instance of SuperType: ', superType);
+
+	console.log('subType.getSuperValue: ', subType.getSuperValue()); // super type prop
+	console.log('subType.getSubValue: ', subType.getSubValue()); // sub type prop
+	console.log('superType.getSuperValue: ', superType.getSuperValue()); // super type prop
+	//console.log('superType.getSubValue: ', superType.getSubValue()); // error <-- superType has no access to property on subType
+
+
+	
+
+
+
+console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ' );
+// - - - - - - - - - - - - - -
+</script>	
+</body>
+
+</html>

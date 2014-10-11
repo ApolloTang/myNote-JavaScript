@@ -1,0 +1,22 @@
+there are only five values in JavaScript that are falsy:
+
+    1. undefined (the default value of declared variables that are not assigned a value)
+    2. null
+    3. NaN ("not a number")
+    4. 0 (the number zero)
+    5. '' (an empty string)
+      
+    http://javascriptweblog.wordpress.com/2011/02/07/truth-equality-and-javascript/
+    http://jqfundamentals.com/chapter/javascript-basics
+    http://james.padolsey.com/javascript/truthy-falsey/
+    
+memonic funone (six value include 'false')
+f - false  
+u - undefine
+n - null 
+o - zero
+n - NaN
+e -	'' 
+
+
+    ↓

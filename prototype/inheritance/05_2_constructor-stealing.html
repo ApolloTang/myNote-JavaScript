@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>05_2_constructor-stealing</title>
+  <meta name="viewport" content="width=device-width">
+
+<style type="text/css" >
+</style>
+
+
+</head>
+
+<body>
+
+
+
+
+<!--script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script-->
+<script>window.jQuery || document.write('<script src="file:///E:/sy/lib/js/jquery-1.7.1.min.js"><\/script>')</script>
+<script src="file:///E:/sy/lib/js/underscore-1.3.3.js"></script>
+<script src="file:///E:/sy/lib/js/backbone-0.9.2.js"></script>
+<script src="file:///E:/sy/lib/js/safe-console.js"></script>
+<script type="text/javascript">
+console.log('jq directory: file:///E:/sy/js/; jQuery version ' + jQuery().jquery);
+// - - - - - - - - - - - - - -
+
+
+console.log("- - - - - - - - - - - - [1] calling parent in its own scope" );
+
+function P1(){ 
+	console.log( "	in P1(), 'this' is: ", this); 
+	this.m = ['m']; console.log("	in P1(), executing 'this.m = ['m'];'" )
+}
+function C1(){
+	P1();
+}
+
+c1= new C1();  	
+ 
+	console.log("	c1.m: ", c1.m, "<-- [!! 1]"); 	// undefined;
+	console.log("	m: ", m);	// ["m"] 
+	console.log( "	C1.prototype.hasOwnProperty('m') : ", C1.prototype.hasOwnProperty('m') ); // false
+	console.log( "	P1.prototype.hasOwnProperty('m'): ", P1.prototype.hasOwnProperty('m') ); // false
+	console.log( "	C1.hasOwnProperty('m'): ", C1.hasOwnProperty('m') ); // false
+	console.log( "	P1.hasOwnProperty('m'): ", P1.hasOwnProperty('m') ); // false
+	console.log( "	c1.hasOwnProperty('m'): ", c1.hasOwnProperty('m'), "<-- [!! 2]" );  // false
+	console.log( "	window.hasOwnProperty('m'): ", window.hasOwnProperty('m'), "<-- [!! 3]" );  // true
+	console.log( "	window.m: ", window.m, "<-- [!! 4]" );  // 'm'
+	console.log( "	m == window.m: ", m == window.m ); // true
+	
+	console.log( "when the instance c1 is created it uses the constructor P1 to mount m on window so now the array ['m'] exists on window.m");
+
+console.log("- - - - - - - - - - - - [2] calling parent in child's scope" );
+
+
+
+function P2(){ 
+	console.log( "	in P2(), 'this' is: ", this); 
+	this.x = ['x']; console.log("	in P2(), executing 'this.x = ['x'];'" )
+}
+function C2(){
+	P2.call(this);   /// *NOTE* the use of .call(this)
+}
+
+c2= new C2();  	
+
+	console.log("	c2.x: ", c2.x, "<-- [!! 1]"); // ['x'];
+	//console.log(x);	// error Uncaught ReferenceError: x is not defined 
+	console.log( "	C2.prototype.hasOwnProperty('x') : ", C2.prototype.hasOwnProperty('x') ); // false
+	console.log( "	P2.prototype.hasOwnProperty('x'): ", P2.prototype.hasOwnProperty('x') ); // false
+	console.log( "	C2.hasOwnProperty('x'): ", C2.hasOwnProperty('x') ); // false
+	console.log( "	P2.hasOwnProperty('x'): ", P2.hasOwnProperty('x') ); // false
+	console.log( "	c2.hasOwnProperty('x'): ", c2.hasOwnProperty('x'), "<-- [!! 2]" ); // true
+	console.log( "	window.hasOwnProperty('x'): ", window.hasOwnProperty('x'), "<-- [!! 3]" );  // true
+	console.log( "	window.x: ", window.x, "<-- [!! 4]" );  // undefined
+
+	console.log( " when the instance c2 is created it uses the constructor P2 to mount m on c2 so now the array ['x'] exists on c1.x" );
+
+console.log("- - - - - - - - - - - - - - - - - - - - - - - -" );
+	console.log(window);
+
+
+// - - - - - - - - - - - - - -
+</script>	
+</body>
+
+</html>

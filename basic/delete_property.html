@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Untitled</title>
+  <meta name="viewport" content="width=device-width">
+
+<style type="text/css" >
+</style>
+
+
+</head>
+
+<body>
+
+
+
+
+
+
+
+<!--script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script-->
+<script>window.jQuery || document.write('<script src="http://localhost/sy/lib/js/jquery-1.7.1.js"><\/script>')</script>
+<script src="http://localhost/sy/lib/js/underscore-1.3.3.js"></script>
+<script src="http://localhost/sy/lib/js/backbone-0.9.2.js"></script>
+<script src="http://localhost/sy/lib/js/safe-console.js"></script>
+<script type="text/javascript">
+log('jq directory: http://localhost/sy/lib/js/jquery-1.7.1.js; jQuery version ' + jQuery().jquery);
+log("- - - - - - Script begin - - - - - -");
+
+log("- - - property added on object: a.x - - - ");
+try {
+    var a={};
+    a.x = "x";
+    var success = delete a.x; 
+    message = success ?  'delete a.x successful' : 'delelete a.x fail'; 
+    log(message); 
+} catch (e) {
+    log(e.message);
+} 
+
+log("- - -  property added on global: x- - - ");
+try {
+    var x;
+    x = "x";
+    log("x: ", x);
+    log("window.x: ", window.x);
+    var success = delete x; 
+    message = success ?  'delete x successful' : 'delete x fail'; 
+    log(message);
+
+} catch (e) {
+    log("browser throw error, message: ", e.message);
+} 
+
+
+log("- - -  property added on global, but delete on window obj: x2- - - ");
+try {
+    var x2;
+    x2 = "x2";
+    log("x2: ", x2);
+    log("window.x2: ", window.x2);
+    var success = delete window.x2; 
+    message = success ?  'delete window.x2 successful' : 'delete window.x3 fail'; 
+    log(message);
+    
+    } catch (e) {
+    log("browser throw error, message: ", e.message);
+}
+
+
+log("- - - property added on window:  window.y - - - ");
+try {
+    window.y;
+    window.y = "y";
+    log("y: ", y);
+    log("window.y: ", window.y);
+    var success = delete y; 
+    message = success ?  'delete y successful' : 'delete y fail'; 
+    log(message); 
+} catch (e) {
+    log("browser throw error, message: ", e.message);
+} 
+
+
+log("- - - error in Thmas Davis book - - - ");
+try {
+    Person = Backbone.Model.extend({
+        initialize: function(){
+            log("Welcome to this world");
+        }
+    });
+    
+    var person = new Person({ name: "Thomas", age: 67});
+    var success = delete person;  // <-- this delete is not successful
+    message = success ?  'delete person successful' : 'delete person fail'; 
+    log(message); 
+    
+    } catch (e) {
+        log("browser throw error, message: ", e.message);
+    } 
+ 
+log('Property added to global obj is map to window obj with the same name; the reverse is ture -- property added on window obj is map property on global obj with the same name.  But there is a distinct different between property added to global obj and that added to window obj. Property add to global object is not delete-able, while property add to window is delete-able. However, delete-ability of property added to window obj is only limit to some browswer, IE <= 8 will throw exception if you try to delete via window (regardless of it being added via global or window). Although deleting property added gobal is not possible, it does not throw exception.');  
+
+log("- - - - - - End of script reached - - - - - -");
+</script>	
+</body>
+    
+</html>

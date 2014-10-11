@@ -1,0 +1,136 @@
+//<script src="http://localhost:8001/js/lib/underscore-1.4.4.js" ></script>
+
+//<script>
+var x = "global"; 
+var o = { x: "o", getX: function(){return this.x;}};
+var p = { x: "p" }
+var getX2 = o.getX;
+
+
+console.log('o.getX(): ', o.getX() ); // o
+console.log('getX2(): ' , getX2()  );  // global
+
+console.log('getX2.call(o): '     , getX2.call(o)     );  // o
+console.log('getX2.bind(o)(): '   , getX2.bind(o)()   );  // o  
+console.log('_.bind(getX2, o)(): ', _.bind(getX2, o)());  // o
+
+console.log('getX2.call(p): '     , getX2.call(p)     ); // p 
+console.log('getX2.bind(p)(): '   , getX2.bind(p)()   ); // p 
+console.log('_.bind(getX, p)(): ' , _.bind(getX2, p)()); // p
+
+var getX3 = o.getX;
+console.log('getX3(): ', getX3() );  // global
+getX3 = getX3.bind(o);
+console.log('getX3(): ', getX3() );  // o
+
+var getX4 = o.getX;
+console.log('getX4(): ', getX4() );  // global
+getX4 = _.bind(getX4, o);
+console.log('getX4(): ', getX4() );  // o
+
+
+
+
+
+
+console.log('* * * * * *  HOW TO USE "bindAll" * * * * * * * ');
+
+console.log('- - - - - using _.bind - - - -');
+var getX5 = o.getX;
+console.log('getX5(): ', getX5() );  // global
+getX5 = _.bind(getX5, o);
+console.log('getX5(): ', getX5() );  // o
+
+// you have to _.bind your callback to your obj every time, if not
+// this will continue reference to global.
+getX5_1 = o.getX;
+getX5_2 = o.getX;
+console.log('getX5_1: ', getX5_1() );  // global
+console.log('getX5_2: ', getX5_2() );  // global
+
+
+console.log('- - - - - using bindAll - - - -');
+var getX6 = o.getX;
+console.log('getX6(): ', getX6() );  // global
+_.bindAll(o, 'getX');    //<----- [!] internally is doing  getX6 = _.bind(getX6, o);
+getX6 = o.getX;
+console.log('getX6(): ', getX6() );  // o
+
+// with _.bindAll you no longer need to bind your callback to your obj,
+// the callback is bind internally and this is now reference to your obj permanently
+getX6_1 = o.getX;
+getX6_2 = o.getX;
+console.log('getX6_1: ', getX6_1() );  // o
+console.log('getX6_2: ', getX6_2() );  // o
+
+
+// You can also bind mutiple call back in your obj, here is a demo
+console.log('- - - - - *manully* bind multiple functions in an object (with out using bindAll) - - - -');
+
+var y1 = "global_y1";
+var y2 = "global_y2";
+var y3 = "global_y3";
+
+var obj = {  y1: "obj_y1"
+            ,y2: "obj_y2"
+		    ,y3: "obj_y3"
+		    , getY1: function(){return this.y1;}
+		    , getY2: function(){return this.y2;}
+		    , getY3: function(){return this.y3;}
+		};
+	
+var getY1 = obj.getY1;
+var getY2 = obj.getY2;
+var getY3 = obj.getY3;
+console.log('getY1(): ', getY1() );  // global_y
+console.log('getY2(): ', getY2() );  // global_y
+console.log('getY3(): ', getY3() );  // global_y
+
+
+getY1 = _.bind(getY1, obj);
+getY2 = _.bind(getY2, obj);
+getY3 = _.bind(getY3, obj);
+console.log('getY1(): ', getY1() );  // obj_y1
+console.log('getY2(): ', getY2() );  // obj_y2
+console.log('getY3(): ', getY3() );  // obj_y3
+
+
+console.log('- - - - - using bindAll to bind multiple functions in an object - - - -');
+
+var z1 = "global_z1";
+var z2 = "global_z2";
+var z3 = "global_z3";
+
+var obj2 = { z1: "obj_z1"
+            ,z2: "obj_z2"
+		    ,z3: "obj_z3"
+		    , getZ1: function(){return this.z1;}
+		    , getZ2: function(){return this.z2;}
+		    , getZ3: function(){return this.z3;}
+		};
+	
+var getZ1 = obj2.getZ1;
+var getZ2 = obj2.getZ2;
+var getZ3 = obj2.getZ3;
+console.log('getZ1(): ', getZ1() );  // global_z
+console.log('getZ2(): ', getZ2() );  // global_z
+console.log('getZ3(): ', getZ3() );  // global_z
+
+_.bindAll(obj2, 'getZ1', 'getZ2'/*, 'getZ3'*/);   //<----- [!] you only have to do this once
+											      //getZ3 comment out for demo
+
+getZ1 = obj2.getZ1;   // previously _.bind(getZ1, obj2);
+getZ2 = obj2.getZ2;   // previously _.bind(getZ1, obj2);
+getZ3 = obj2.getZ3;   // previously _.bind(getZ1, obj2);
+console.log('getZ1(): ', getZ1() );  // obj_z1
+console.log('getZ2(): ', getZ2() );  // obj_z2
+console.log('getZ3(): ', getZ3() );  // global_z3 
+
+
+/*
+\ pause/continue
+'  over
+;  into
+^; out
+*/
+//</script>

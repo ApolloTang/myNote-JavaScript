@@ -1,0 +1,55 @@
+
+//<script src="http://localhost:8001/lib/js/underscore-1.4.4.js" ></script>
+//<script>
+var _ = _ || require('underscore');
+
+
+var objHash;
+var what;
+
+var p0 = this;
+/*
+var o0 = {
+	objThis: 'p',
+	m:      function() { console.log(this); return this.p }(),
+	innerMethodThis: function() { return function(){return this}() }()
+	}
+	
+
+
+var con1 = function() {
+	return {
+		objThis: this,
+		methodThis:      function() { return this }(),
+		innerMethodThis: function() { return function(){return this}() }()
+	}
+}
+var obj1 = new con1;
+
+var con2 = function() {
+	return {
+		objThis: this,
+		methodThis:      function() { return this }.call(this),
+		innerMethodThis: function() { return function(){return this}.call(this) }.call(this)
+	}
+}
+var obj2 = new con2;
+
+
+
+var o = {
+	p:'p',
+	m1: function() { console.log('loading, this is: ', this) }(),
+    m2: function() { console.log('runtime, this is: ', this) } 	
+}
+*/
+
+	var o1 = {
+		p1:'p1'
+		, m1: function(callback) { 
+			callback.call(this); 
+			console.log('1', this);
+		}
+	}
+o1.m1( function() {console.log('2', this)} );	
+//</script>

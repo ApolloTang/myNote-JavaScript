@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>05_3_constructor-stealing-w-arguments</title>
+  <meta name="viewport" content="width=device-width">
+
+<style type="text/css" >
+</style>
+
+
+</head>
+
+<body>
+
+
+< h1 > A Page with an Iframe < /h1 >
+< iframe src=”1.html” width=”50%” height=”300” name=”myIframe” >
+This content will be displayed by browsers with no iFrame support.
+< /iframe >
+
+
+
+
+
+
+<!--script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script-->
+<script>window.jQuery || document.write('<script src="file:///E:/sy/lib/js/jquery-1.7.1.min.js"><\/script>')</script>
+<script src="file:///E:/sy/lib/js/underscore-1.3.3.js"></script>
+<script src="file:///E:/sy/lib/js/backbone-0.9.2.js"></script>
+<script src="file:///E:/sy/lib/js/safe-console.js"></script>
+<script type="text/javascript">
+console.log('jq directory: file:///E:/sy/js/; jQuery version ' + jQuery().jquery);
+// - - - - - - - - - - - - - -
+
+
+
+console.log("- - - - - - - - - - - - [2] providing arg to parent in child's scope" );
+
+
+
+function P(_x){  // parent
+	console.log( "	in P(), 'this' is: ", this); 
+	this.x = _x ; console.log("	in P(), executing 'this.x = x;'" ); 
+}
+
+
+function C(){  // child	
+	P.call(this, ['x'] );	 // inherit from parent, [assing in a property for parent
+	this.y = ['y'];			// property for child
+}
+
+c1= new C();  	
+console.log(c1);
+	console.log("	c1.x: ", c1.x); // ['x'];
+	console.log("	c1.y: ", c1.y); // ['y'];
+
+console.log("	- - - - - - - - - - - - - - - - - - - - - - - -" );
+	//console.log(x);	// error Uncaught ReferenceError: x is not defined 
+	console.log( "	C.hasOwnProperty('x'): ",C.hasOwnProperty('x') ); // false
+	console.log( "	P.hasOwnProperty('x'): ", P.hasOwnProperty('x') ); // false
+	console.log( "	C.hasOwnProperty('y'): ",C.hasOwnProperty('y') ); // false
+	console.log( "	P.hasOwnProperty('y'): ", P.hasOwnProperty('y') ); // false
+
+console.log("	- - - - - - - - - - - - - - - - - - - - - - - -" );
+	console.log( "	C.prototype.hasOwnProperty('x') : ",C.prototype.hasOwnProperty('x') ); // false
+	console.log( "	P.prototype.hasOwnProperty('x'): ", P.prototype.hasOwnProperty('x') ); // false
+	console.log( "	C.prototype.hasOwnProperty('y') : ",C.prototype.hasOwnProperty('y') ); // false
+	console.log( "	P.prototype.hasOwnProperty('y'): ", P.prototype.hasOwnProperty('y') ); // false
+
+console.log("	- - - - - - - - - - - - - - - - - - - - - - - -" );
+	console.log( "	c1.hasOwnProperty('x'): ", c1.hasOwnProperty('x') ); 			// true
+	console.log( "	window.hasOwnProperty('x'): ", window.hasOwnProperty('x') );  	// false
+	console.log( "	c1.hasOwnProperty('y'): ", c1.hasOwnProperty('y') ); 			// true
+	console.log( "	window.hasOwnProperty('y'): ", window.hasOwnProperty('y') );  	// false
+
+console.log("	- - - - - - - - - - - - - - - - - - - - - - - -" );
+	console.log( "	window.x: ", window.x );  // undefined
+	console.log( "	window.x: ", window.y );  // undefined
+/**/
+
+console.log("- - - - - - - - - - - - - - - - - - - - - - - -" );
+	console.log(window);
+
+
+// - - - - - - - - - - - - - -
+</script>	
+</body>
+
+</html>

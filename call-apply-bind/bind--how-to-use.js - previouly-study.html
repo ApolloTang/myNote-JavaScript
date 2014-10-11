@@ -1,0 +1,72 @@
+//<script src="http://localhost:8001/js/lib/underscore-1.4.4.js" ></script>
+
+//<script>
+var x = "global"; 
+
+var o = {
+	x: "o",
+	getX: function() { 
+        return this.x;
+	}
+};
+	
+var p = {
+	x: "p"
+}
+	
+
+var getX2 = o.getX;
+
+console.log('o.getX(): ', o.getX() ); // o
+
+console.log('getX2(): ', getX2() );  // global
+
+console.log('getX2.call(o): ', getX2.call(o)) // o
+
+console.log('getX2.bind(o)(): ', getX2.bind(o)()) // o  
+
+console.log('_.bind(getX2, o)(): ', _.bind(getX2, o)());  // o
+
+console.log('getX2.call(p): ', getX2.call(p)) // p 
+
+console.log('getX2.bind(p)(): ', getX2.bind(p)()) // p 
+
+console.log('_.bind(getX, p)(): ', _.bind(getX2, p)());  // p
+
+var getX3 = o.getX;
+console.log('getX3(): ', getX3() );  // global
+getX3 = getX3.bind(o);
+console.log('getX3(): ', getX3() );  // o
+
+var getX4 = o.getX;
+console.log('getX4(): ', getX4() );  // global
+getX4 = _.bind(getX4, o);
+console.log('getX4(): ', getX4() );  // o
+
+
+var getX5 = o.getX;
+console.log('getX5(): ', getX5() );  // global
+_.bindAll(o, 'getX');   //<----- [!] you only have to do this once 
+                        // o.getX = o.getX.bind(o); // same as above
+getX5 = o.getX;
+console.log('getX5(): ', getX5() );  // o
+
+console.log('- - - - - - - - -');
+
+var getX6 = o.getX; 
+console.log('getX6(): ', getX6() );  // o
+
+var getX7 = o.getX; 
+console.log('getX7(): ', getX7() );  // o
+
+
+
+
+
+/*
+\ pause/continue
+'  over
+;  into
+^; out
+*/
+//</script>

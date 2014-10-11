@@ -1,0 +1,128 @@
+
+Simplfied Operator precedance table
+
+------------------------------------------------------------
+Operator   Operation                         A N Types
+------------------------------------------------------------
+++          Pre- or post-increment           R 1 lval→num
+--          Pre- or post-decrement           R 1 lval→num
+-           Negate number                    R 1 num→num
++           Convert to number                R 1 num→num
+~           Invert bits                      R 1 int→int
+!           Invert boolean value             R 1 bool→bool
+delete      Remove a property                R 1 lval→bool
+typeof      Determine type of operand        R 1 any→str
+void        Return undefined value           R 1 any→undef
+------------------------------------------------------------
+*,/,%       Multiply, divide, remainder      L 2 num,num→num
++,-         Add, subtract                    L 2 num,num→num
++           Concatenate strings              L 2 str,str→str
+------------------------------------------------------------
+<,<=,>,>=   Compare in numeric order         L 2 num,num→bool
+<,<=,>,>=   Compare in alphabetic order      L 2 str,str→bool
+instanceof  Test object class                L 2 obj,func→bool
+in          Test whether property exists     L 2 str,obj→bool
+------------------------------------------------------------
+==          Test for equality                L 2 any,any→bool
+!=          Test for inequality              L 2 any,any→bool
+------------------------------------------------------------
+===         Test for strict equality         L 2 any,any→bool
+!==         Test for strict inequality       L 2 any,any→bool
+------------------------------------------------------------
+&&          Compute logical AND              L 2 any,any→any
+||          Compute logical OR               L 2 any,any→any
+------------------------------------------------------------
+?:          Choose 2nd or 3rd operand        R 3 bool,any,any→any
+------------------------------------------------------------
+=           Assign to a variable/property    R 2 lval,any→any
+------------------------------------------------------------
+,           Discard 1st operand,
+            return second                    L 2 any,any→any
+
+
+
+ = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+
+Operator precedance
+-------------------------
+Table 4-1 pg 62, DF
+
+Table legand:
+
+    The operators listed first have higher precedence than those
+    listed last.
+
+    Operators separated by a horizontal line have different precedence levels.
+
+    The column labeled A gives the operator associativity, which can be
+    L (left-to-right) or R (right-to-left)
+
+    The column N specifies the number of operands.
+
+    The column labeled Types lists the expected types of the operands
+    and (after the → symbol the result type for the operator.
+
+    "lval" in the table means "lvalue", a historical term that means:
+
+        " an expression that can legally appear on the left
+          side of an assignment expression "
+
+        In JavaScript lvalue includes:
+
+            variables,
+            properties of objects,
+            elements of arrays.
+
+
+------------------------------------------------------------
+Operator   Operation                         A N Types
+------------------------------------------------------------
+++          Pre- or post-increment           R 1 lval→num
+--          Pre- or post-decrement           R 1 lval→num
+-           Negate number                    R 1 num→num
++           Convert to number                R 1 num→num
+~           Invert bits                      R 1 int→int
+!           Invert boolean value             R 1 bool→bool
+delete      Remove a property                R 1 lval→bool
+typeof      Determine type of operand        R 1 any→str
+void        Return undefined value           R 1 any→undef
+------------------------------------------------------------
+*,/,%       Multiply, divide, remainder      L 2 num,num→num
++,-         Add, subtract                    L 2 num,num→num
++           Concatenate strings              L 2 str,str→str
+<<          Shift left                       L 2 int,int→int
+>>          Shift right with sign extension  L 2 int,int→int
+>>>         Shift right with zero extension  L 2 int,int→int
+------------------------------------------------------------
+<,<=,>,>=   Compare in numeric order         L 2 num,num→bool
+<,<=,>,>=   Compare in alphabetic order      L 2 str,str→bool
+instanceof  Test object class                L 2 obj,func→bool
+in          Test whether property exists     L 2 str,obj→bool
+------------------------------------------------------------
+==          Test for equality                L 2 any,any→bool
+!=          Test for inequality              L 2 any,any→bool
+===         Test for strict equality         L 2 any,any→bool
+!==         Test for strict inequality       L 2 any,any→bool
+------------------------------------------------------------
+&           Compute bitwise AND              L 2 int,int→int
+^           Compute bitwise XOR              L 2 int,int→int
+|           Compute bitwise OR               L 2 int,int→int
+------------------------------------------------------------
+&&          Compute logical AND              L 2 any,any→any
+||          Compute logical OR               L 2 any,any→any
+------------------------------------------------------------
+?:          Choose 2nd or 3rd operand        R 3 bool,any,any→any
+------------------------------------------------------------
+=           Assign to a variable/property    R 2 lval,any→any
+*=,/=,%=,   Operate and assign               R 2 lval,any→any
++=,-=,&=,
+^=,|=,
+<<=,>>=,>>>=
+------------------------------------------------------------
+,           Discard 1st operand,
+            return second                    L 2 any,any→any
+
+
+

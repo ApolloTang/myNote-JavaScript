@@ -1,0 +1,5 @@
+http://constc.blogspot.ca/2008/07/undeclared-undefined-null-in-javascript.html
+
+http://weblogs.asp.net/bleroy/archive/2005/02/15/Three-common-mistakes-in-JavaScript-_2F00_-EcmaScript.aspx
+
+http://stackoverflow.com/questions/2559318/how-to-check-for-undefined-or-null-variable-in-javascript

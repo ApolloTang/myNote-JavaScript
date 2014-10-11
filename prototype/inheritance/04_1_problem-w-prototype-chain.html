@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>04_problem-w-prototype_chain</title>
+  <meta name="viewport" content="width=device-width">
+
+<style type="text/css" >
+</style>
+
+
+</head>
+
+<body>
+
+
+
+
+<!--script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script-->
+<script>window.jQuery || document.write('<script src="file:///E:/sys/lib/js/jquery-1.7.1.min.js"><\/script>')</script>
+<script src="file:///E:/sys/lib/js/underscore-1.3.3.js"></script>
+<script src="file:///E:/sys/lib/js/backbone-0.9.2.js"></script>
+<script src="file:///E:/sys/lib/js/safe-console.js"></script>
+<script type="text/javascript">
+console.log('jq directory: file:///E:/sys/js/; jQuery version ' + jQuery().jquery);
+// - - - - - - - - - - - - - -
+
+
+
+console.log('- - - - - - - - - - - - - - -' );
+
+function Super(){ this.a ='a'; }
+function Sub(){}
+
+//inherit from SuperType
+Sub.prototype = new Super();
+
+
+var sub1 = new Sub();  console.log("sub1 = new Sub(); // create an instance of Sub type"); 
+
+	console.log('	sub1.a: ', sub1.a, ' <-- this prop is on Sub.prototype' );  // a
+	console.log("	sub1.hasOwnProperty('a'): ", sub1.hasOwnProperty('a') );  // false
+	console.log("	Sub.prototype.hasOwnProperty('a'): ", Sub.prototype.hasOwnProperty('a'));  //true
+
+sub1.a = 'z';    console.log("sub1.a = 'z'; //alter property on instance of sub type'"); 
+
+	console.log('	sub1.a: ', sub1.a, ' <-- this prop is on instance & it masks Sub.prototype.a' );  // z
+	console.log("	sub1.hasOwnProperty('a'): ", sub1.hasOwnProperty('a') );
+	console.log("	Sub.prototype.hasOwnProperty('a'): ", Sub.prototype.hasOwnProperty('a'), ' <-- this prop has been masked');  //true
+	console.log("	Sub.prototype.a: ", Sub.prototype.a);
+	console.log("	sub1.a == Sub.prototype.a: ", sub1.a == Sub.prototype.a ); // false
+
+var sub2 = new Sub(); console.log("sub2 = new Sub(); // create another instance of Sub type"); 
+	console.log('	sub2.a: ', sub2.a, ' <-- this prop is on Sub.prototype' );
+	console.log("	sub2.hasOwnProperty('a'): ", sub2.hasOwnProperty('a') );  // false
+	console.log("	Sub.prototype.hasOwnProperty('a'): ", Sub.prototype.hasOwnProperty('a'));  //true
+	console.log("	sub2.a == sub1.a: ", sub2.a == sub1.a ); // false
+
+var super1 = new Super();  console.log("super1 = new Super(); // create an instance of Supper type"); 
+	console.log("	super1.hasOwnProperty('a'): ", super1.hasOwnProperty('a'));
+	console.log("	super1.a: ", super1.a);
+
+
+
+
+console.log(''); 
+console.log('- - - - - - - - - - - - - - - some thing I discover on the side - -  ' );
+
+	console.log("Super.hasOwnProperty('a'): ", Super.hasOwnProperty('a'), ' <-- hasOwnProperty DOESNOT work on this.a in Constructor');
+	console.log("Super.a: ", Super.a, ' <-- say undefined, but this.a on Super is defined' );
+// - - - - - - - - - - - - - -
+</script>	
+</body>
+
+</html>

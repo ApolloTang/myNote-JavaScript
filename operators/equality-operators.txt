@@ -1,0 +1,103 @@
+DF §4.9.1 p71
+
+"===" and "==" accept operands of any type, and return type boolean.
+
+:: what they are called
+
+    === : strict equality operator or identity operator
+    ==  : equality operator, or I called it loosely equality operator.
+
+    !== : strict inequality operator
+    !=  : inequality operator
+
+:: Read them this way:
+
+    =   "gets or is assigned"
+
+    ==  "is loosely equal to"
+    === "is strickly equal to"
+
+    !=  "not loosely equal to"
+    !== "not strickly equal to"
+
+::: When comparing object
+
+    An object is equal to itself, but not to any other object.  That
+    is because in JavaScript objects are compared by reference, not
+    by value (§3.7).
+
+        - If two distinct objects have the same number of properties, with
+        the same names and values, they are still not equal.
+        - Two arrays that have the same elements in the same order are not
+        equal to each other.
+
+::: When comparing string
+
+    Javascript does not perform unicode normalization, so a pair
+    of strings with same visual appearance may be encoded with different
+    sequences of 16-bit value and therefore not neccesary seen equal
+    to "===" or "==" operators. -- see also String.localeCompare().
+
+::: How strict equality operator "===" works
+
+    The strict equality operator "===" evaluates its operands before
+    compares the evaluated results as follow:
+
+        Not equal if
+        • If the two values have different types
+        • If one or both values is NaN [note 1]
+
+
+        Equal if
+        • If both values are null
+        • If both values are undefined.
+        • If both are the boolean value true
+        • If both are the boolean value false.
+        • If two numbers type have same value
+
+
+    * negative zero *
+        (0 === -0) // true
+
+    [note 1]
+    * About NaN *
+    Remember : NaN value is never equal to any other value, *including itself*
+    To check whether a value "x" is NaN, use:
+        x !== x
+    NaN is the only value of x for which the above expression is true!
+
+
+:: How equality operator "==" works
+
+    If the two values have the same type, equality operator test them
+    using the same rule that defined for strict equality. Otherwise
+    following rules and type conversions is used to check for equality.
+
+    null == undefined      >>> true
+    <string> == <number>   >>> convert the string to a number b4 comparison.
+    true == true           >>> convert true to 1 b4 comparison.
+    false == false         >>> convert false to 0 b4 comparison.
+    <obj> == <number>      >>> convert obj to primitive according to §3.8.3 b4 comparison.
+    <obj> == <string>      >>> same as <obj> == <number>
+
+        An object is converted to a primitive value by either its
+        toString() method or its valueOf() method.
+
+        The built-in classes of core JavaScript attempt valueOf()
+        conversion before toString() conversion, except for the Date
+        class, which performs toString() conversion.
+
+        Objects that are not part of core JavaScript may convert
+        themselves to primitive values in an implementation-defined way.
+
+     Any other combinations of values are not equal.
+
+    eg:
+        "1" == true
+        "1" == 1
+        1 == 1
+        true
+
+
+
+

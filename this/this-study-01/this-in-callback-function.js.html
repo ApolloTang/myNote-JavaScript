@@ -1,0 +1,85 @@
+
+//<script src="http://localhost:8001/lib/js/underscore-1.4.4.js" ></script>
+//<script>
+var _ = _ || require('underscore');
+//var propertyList = _.functions(_);
+//console.log({what:propertyList});
+
+var o1 = {
+	m : function( callBack ) { 
+			console.log('1a', this);  // this = o1
+		    callBack();
+		}
+}
+o1.m( function() { console.log('1b', this) });  // window
+
+// 
+console.log('- - - using that - - - - - - - - - - -');
+var o2 = {
+	m : function ( callBack ) {
+			console.log('2a', this ); // this = o2
+			callBack(this)
+		}
+}
+o2.m( function (that) { console.log('2b', that) });
+
+//
+console.log('- - - using call/apply- - - - - - - - - - -');
+var o3 = {
+	m : function( callBack ) { 
+		console.log('3a', this);  // this = o3
+		callBack.call(this);
+		}
+}
+o3.m(function() { console.log('3b', this) });
+
+// 
+console.log('- - - using native bind - - - - - - - - - - -');
+var o4 = {
+	m : function(callBack) { 
+		  console.log('4a', this);  // this = o4
+		  callBack.bind(this)();
+		}	
+}
+
+o4.m(function() { console.log('4b', this) });
+
+console.log('- - - using _.bind - - - - - - - - - - -');
+var o5 = {
+	m : function(callBack) { 
+		console.log('5a', this);  // this = o5
+		_.bind(callBack, this)();
+	}	
+}
+
+o5.m(function() { console.log('5b', this) });
+
+
+console.log('- - - using _.bindAll (fail) - - - - - - - - - - -');
+/*
+var o6 = {
+	m : function(callBack) { 
+		console.log('6a', this);  // this = o5
+		_.bindAll(this, 'callBack')();
+	}	
+}
+
+//o6.m(function() { console.log('6b', this) });  //TypeError: Cannot read property 'bind' of undefined
+
+function saySomthing() { console.log('6b', this) }
+o6.m(saySomthing);
+*/
+
+
+console.log('- - - using _.bindAll - - - - - - - - - - -');
+
+var o6 = {
+	init: function () { _.bindAll(this, 'callBack'); },
+	m : function(callBack) { 
+		console.log('6a', this);  // this = o5
+		callBack();
+	}	
+}
+o6.init();
+o6.m(function() { console.log('6b', this) });
+//</script>

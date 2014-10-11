@@ -1,0 +1,80 @@
+Javascript type conversion (coercion)
+--------------------------------------
+p45 DF
+
+Javascript converts the value you supply to the type it wants
+For exanple, if it expects a boolean type, it will convert whatever
+type you provide into a boolean according to a set of predefined
+rule.
+
+The same is true for other types: if JavaScript wants a string
+it will convert whatever value you give it to a string; If JavaScript
+wants a number, it will try to convert the value you give it
+to a number (or to NaN if it cannot perform a meaningful conversion).
+
+    10  + " objects"     // "10 objects"  : number converts to a string
+    "7" * "4"            // 28            : both strings convert to numbers
+    n   + " objects"     // "NaN objects" : NaN converts to string "NaN"
+    var n = 1 - "x";     // NaN           : "x" cant convert to a number
+
+
+Table 3-2 p46 DF
+Summary of how values convert from one type to another in JavaScript.
+Empty cells indicate that no conversion is necessary and none is performed.
+
+        | Value               | Converted to:
+==================================================================================
+        |                     | String       Number   Boolean  Object
+---------------------------------------------------------------------------------
+undf/   | undefined           | "undefined"  NaN      false    throws TypeError
+null    | null                | "null"       0        false    throws TypeError
+---------------------------------------------------------------------------------
+String  | "" (empty string)   |              0        false    new String("")
+        | "1.2" (numeric)     |              1.2      true     new String("1.2")
+        | "one" (non-numeric) |              NaN      true     new String("one")
+---------------------------------------------------------------------------------
+Number  | 0                   | "0"                   false    new Number(0)
+        | -0                  | "0"                   false    new Number(-0)
+        | NaN                 | "NaN"                 false    new Number(NaN)
+        | Infinity            | "Infinity"            true     new Number(Inf)
+        | -Infinity           | "-Infinity"           true     new Number(-Inf)
+        | 1(finite, !zero)    | "1"                   true     new Number(1)
+---------------------------------------------------------------------------------
+Boolean | true                | "true"       1                 new Boolean(true)
+        | false               | "false"      0                 new Boolean(false)
+---------------------------------------------------------------------------------
+Object  | {} (object)         | §3.8.3       §3.8.3   true
+        | [] (empty [])       | ""           0        true
+        | [9] (1 numeric elt) | "9"          9        true
+        | ['a'] (array)       | use join()   NaN      true
+        | function()          | see §3.8.3   NaN      true
+---------------------------------------------------------------------------------
+
+Conversion to numbers is tricky:
+- Strings that can be parsed as numbers convert to those numbers
+- Leading and trailing spaces are allowed, but any leading or trailing
+  nonspace characters that are not part of a numeric literal cause the
+  string-to-number conversion to produce NaN.
+- Some numeric conversions may seem surprising:
+    true converts to 1,
+    false and the empty string "" convert to 0.
+
+Primitive-to-object conversions are straightforward:
+    primitive values convert to their wrapper object (§3.6) as if
+    by calling the String(), Number(), or Boolean() constructor.
+
+
+-----------------------------------------------------------------------------------
+
+:: short-cut
+
+    cast string to number using prefix "+" :
+        var a = "5";
+        var b = +a;
+        typeof b // "number"
+
+    cast number to string using by concatenation to empty string :
+        var n = 1;
+        var s = n + "";
+        typeof s // "string"
+

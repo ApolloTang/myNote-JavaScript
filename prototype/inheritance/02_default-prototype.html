@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>default-prototype</title>
+  <meta name="viewport" content="width=device-width">
+
+<style type="text/css" >
+</style>
+
+
+</head>
+
+<body>
+
+
+
+
+<!--script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script-->
+<script>window.jQuery || document.write('<script src="file:///E:/sys/lib/js/jquery-1.7.1.min.js"><\/script>')</script>
+<script src="file:///E:/sys/lib/js/underscore-1.3.3.js"></script>
+<script src="file:///E:/sys/lib/js/backbone-0.9.2.js"></script>
+<script src="file:///E:/sys/lib/js/safe-console.js"></script>
+<script type="text/javascript">
+console.log('jq directory: file:///E:/sys/js/; jQuery version ' + jQuery().jquery);
+// - - - - - - - - - - - - - -
+
+
+
+console.log('- -  This - - - - - - - - - - - - - - - - - - - - -  - - - - -  ' );
+
+	function A(){ this.property = "prop on A"; 	}
+	A.prototype.get_A_prop = function(){ return this.property; };	
+
+	var a = new A();
+
+	console.log('a.get_A_prop: ', a.get_A_prop()); // prop on A
+	console.log('instance of A: ', a);
+
+
+
+	
+
+
+
+console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ' );
+// - - - - - - - - - - - - - -
+</script>	
+</body>
+
+</html>

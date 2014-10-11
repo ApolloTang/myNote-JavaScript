@@ -1,0 +1,40 @@
+<html>
+    <head>      
+    </head>
+    <body>
+        <input type="button" id="btn" value="Click"></input>
+        <input type="text" id="txt"></input>
+        <script>
+		//http://stackoverflow.com/questions/8942678/keyboardevent-in-chrome-keycode-is-0/12522752#12522752
+            document.getElementById('btn').addEventListener("click", btnClick);
+            document.getElementById('txt').addEventListener("keydown", txtKeydown);         
+
+            function btnClick(e) {
+                var txt = document.getElementById('txt');               
+
+                var dispatchKeyboardEvent = function(target, initKeyboradEvent_args) {
+                    //var e = document.createEvent("KeyboardEvents"); // dones't work in ff
+					var e = document.createEvent("KeyEvents");
+                    //e.initKeyboardEvent.apply(e, Array.prototype.slice.call(arguments, 1));  // dones't work in ff
+					e.initKeyEvent.apply(e, Array.prototype.slice.call(arguments, 1));
+                    e.keyCode = 83;
+                    e.charCode = 0;
+                    target.dispatchEvent(e);
+                };
+
+                var canceled = !dispatchKeyboardEvent(txt,
+                'keydown', true, true,  // type, bubbles, cancelable
+                window,  // window
+                's',  // key
+                0, // location: 0=standard, 1=left, 2=right, 3=numpad, 4=mobile, 5=joystick
+                false, false, false);  // Ctr, Alt, Shift
+            }
+
+            function txtKeydown(e) {
+                console.dir(e);
+                console.log(e.keyCode);
+            }
+
+        </script>
+    </body>
+</html>

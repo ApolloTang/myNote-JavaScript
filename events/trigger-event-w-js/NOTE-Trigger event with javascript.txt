@@ -1,0 +1,51 @@
+Trigger event with javascript
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+KeyboardEvent in Chrome, keyCode is 0
+http://stackoverflow.com/questions/8942678/keyboardevent-in-chrome-keycode-is-0/    <--- got this one to work need to study, file location : js-silumate-onchange-events2.html
+
+:: Firing a Keyboard Event in JavaScript <---- can't get this one to work 
+http://stackoverflow.com/questions/961532/firing-a-keyboard-event-in-javascript
+
+
+:: KeyboardEvent in Chrome, keyCode is 0
+http://stackoverflow.com/questions/8942678/keyboardevent-in-chrome-keycode-is-0/    <--- I thought I got this one to work but not really, file location : js-silumate-onchange-events.html
+https://code.google.com/p/chromium/issues/detail?id=52408  < --- seem to report problem in the above.
+
+:: Havent investigate the following:
+http://stackoverflow.com/questions/11857524/working-with-initkeyboardevent
+http://stackoverflow.com/questions/10455626/keydown-simulation-in-chrome-fires-normally-but-not-the-correct-key
+http://www.howtocreate.co.uk/tutorials/javascript/domevents
+
+Firing a Keyboard Event in JavaScript                 <--------------------------------- can't get this one to work 
+http://stackoverflow.com/questions/961532/firing-a-keyboard-event-in-javascript
+
+:: About initkeyboardevent
+http://stackoverflow.com/questions/11857524/working-with-initkeyboardevent
+
+:: use this to test charactor code:
+http://unixpapa.com/js/key.html
+http://unixpapa.com/js/testkey.html
+
+
+
+
+
+
+
+
+
+::: About DOM event
+http://stackoverflow.com/questions/5630510/javascript-documentation-across-standardized-browsers-for-events
+http://blogs.msdn.com/b/ie/archive/2010/03/26/dom-level-3-events-support-in-ie9.aspx
+http://en.wikipedia.org/wiki/DOM_events
+http://stackoverflow.com/questions/6629093/what-are-dom-levels
+
+::: trigger-event-general
+https://developer.mozilla.org/en-US/docs/DOM/document.createEvent
+https://developer.mozilla.org/samples/domref/dispatchEvent.html
+
+http://stackoverflow.com/questions/2490825/how-to-trigger-event-in-javascript
+http://stackoverflow.com/questions/2856513/trigger-onchange-event-manually
+
+

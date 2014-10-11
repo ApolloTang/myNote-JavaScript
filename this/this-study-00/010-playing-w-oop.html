@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Untitled</title>
+  <meta name="viewport" content="width=device-width">
+
+<style type="text/css" >
+
+
+	
+</style>
+</head>
+<body>
+
+
+  <!--script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script-->
+  <script>window.jQuery || document.write('<script src="file:///E:/sys/lib/js/jquery-1.7.1.min.js"><\/script>')</script>
+  <script src="file:///E:/sys/lib/js/safe-console.js"></script>
+
+
+
+<script type="text/javascript">
+console.log('jq directory: file:///E:/sys/js/; jQuery version ' + jQuery().jquery);
+
+var A = function() { };
+A.p = 'hello A!';
+var a = new A();
+	console.log("	a.p=", a.p);  // undefined
+	console.log("	A.p=", A.p);  // hello A!
+	console.log("	window", window);  
+
+
+console.log('- - - - -');
+var B = function() { };
+B.prototype.p = 'hello B!';
+var b = new B();
+	console.log(B);  			// function(){}
+	console.log("	b.p: ", b.p);  // hello B! 
+	console.log("	B.p: ", B.p);  // undefined
+	console.log("	B.prototype.p: ", B.prototype.p);  // hello B! 
+	console.log("	b: ", b);  			//>B
+
+
+/*
+var E = Object();
+E.p = 'hello E!';
+var e = new E();  // error.. b/c Object is already an instance ? or 'new' keyword can only apply on function
+console.log(e.p); 
+*/
+
+console.log('- - - - -');
+var F = Object();
+F.p = 'hello F!';
+console.log("	F.p: ", F.p);  // hello F!
+console.log("	F: ", F);  // hello F!
+/*
+console.log('- - - - -');
+var F2 = Object();
+F2.prototype.p = 'hello F2!';  //error  b/c u can't assign prototype to Object ?
+console.log(F2.p);  // hello F!
+*/
+
+console.log('- - - - -');
+var G = {};
+G.p = 'hello G!';
+console.log("G.p="+G.p);  // undefined
+
+/*
+console.log('- - - - -');
+var G2 = {};
+G2.prototype.p = 'hello G2!';  //error  b/c u can't assign prototype to Object ?
+console.log(G2.p);  // undefined
+*/
+
+/*
+console.log('- - - - -');
+var G3 = {};
+var g3 = new G3(); //error  b/c G3 is already an instance ?
+G3.p = 'hello G3!';
+console.log("G3.p="+G3.p);  // undefined
+*/
+
+console.log('- - - - -');
+var H = function() { console.log('	this: ', this)} 
+H.prototype.p = 'hello H!';
+h = new H(); 	// this: > H
+console.log("	h.p: ", h.p);
+console.log("	h: ", h);
+
+console.log('- - - - -');
+var H2 = function() { console.log(this)}  // object H
+H2.prototype.p = 'hello H2!';
+new H2();
+//console.log(h2.p); // error 
+console.log("H2.p="+H2.p);
+console.log(this.p);
+console.log(H2.prototype.p);
+
+console.log('- - - - -');
+console.log(this); // Window
+
+console.log('- - - - -');
+$(document).ready(function() { console.log(this) });  // Document
+
+
+</script>	
+</body>
+
+
+
+</html>

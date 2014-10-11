@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>borrowing-other-object-method.html</title>
+
+  <meta name="viewport" content="width=device-width">
+  <!-- <link rel="stylesheet" href="http://apollotang.com/cdn/lib/css/bootstrap.css"> -->
+  
+<style type="text/css" >
+</style>
+
+
+</head>
+
+<body>
+
+        
+        
+<!-- <script src="http://code.jquery.com/jquery-1.8.0.js"></script>
+<script src="http://apollotang.com/cdn/lib/js/underscore-1.4.2.js"></script>
+<script src="http://apollotang.com/cdn/lib/js/backbone-0.9.2.js"></script>
+<script src="http://apollotang.com/cdn/lib/js/safe-console.js"></script>
+<script src="http://apollotang.com/cdn//lib/js/_o_/_o_0.0.1.js"></script> -->
+
+
+
+
+<!-- script>window.jQuery || document.write('<script src="http://localhost/sy/lib/js/jquery-1.7.1.min.js"><\/script>')</script-->
+
+<script type="text/javascript">
+//console.log('jQuery version ' + jQuery().jquery);
+// - - - - - - - - - - - - - -
+
+
+(
+	function() { 
+		//  argument.slice(1,2);  // argument is not an array, it doesn't have slice method 
+		debugger;
+		var var1 = Array.prototype.slice.call(arguments, 1,2);  // so we borrow slice method from Array
+		debugger;	
+	}(1,2,3,4)
+);
+
+( 
+	function(){
+		var mydate = new Date(2009, 9, 2);
+		var isInstanceOfDate = mydate instanceof Date;  // true
+		
+		// add a Y() method to Window.Date.formats
+		Date.formats = { Y: function (date) {                                     // fullyear2  fullyear3
+								var this_is_Date = (this == Date);                // false      false
+								var this_is_DateFormats = (this == Date.formats); // true       false
+								var second_arg = arguments[1];					  // false      true
+								var this_is_someObj=(second_arg == this);
+								debugger;
+								return date.getFullYear(); // call getFullYear method on Date 
+							} 
+						};
+
+		debugger;
+		var fullyear1 = mydate.getFullYear();
+		var fullyear2 = Date.formats.Y(mydate);
+		
+		var someObj = {};
+		var fullyear3 = Date.formats.Y.call(someObj, mydate, someObj);  // this is like:  someObj.Y(mydate);
+		
+		debugger;
+	}()
+);
+
+
+
+// - - - - - - - - - - - - - -
+</script>	
+</body>
+
+</html>

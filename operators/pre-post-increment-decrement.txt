@@ -1,0 +1,54 @@
+p68-69
+
+Pre-increment operator:
+
+    When the operator come before the operand.
+
+        ++i
+
+    The operation increase the value of operand i, then
+    evaluate the expression to the incremented value of the operand.
+
+        var i = 1, j = ++i; // i and j are both 2
+
+Post-increment operator:
+
+    When the operator come after the operant.
+
+       i++
+
+    The operant is increase, but the expression is evaluated to
+    the unincremented value of the operand.
+
+        var i = 1, j = i++; // i is 2, j is 1
+
+
+
+Because of JavaScript operator perform type coersion before operation,
+
+        ++x and x=x+1
+
+    don't always evaluate to the same value.
+
+    For example, in the following, if x is of type number:
+
+        var x = 1;
+        ++x;         // 2
+
+        var x = 1;
+        x = x + 1;   // 2
+
+    However, if x is of type string:
+
+        var x = "1";
+        ++x;         // 2
+
+        var x = "1";
+        x = x + 1;   // 11
+
+    "+" concate string, while pre/post operator "++" does
+    numeric addition operation.
+
+
+
+
