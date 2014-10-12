@@ -1,0 +1,22 @@
+//<script Zsrc="//localhost:8001/lib/js/underscore-1.4.4.js" ></script>
+//<script>
+//var _ = _ || require('underscore');
+
+var o = { 
+           f1: function() { return this; }
+         , o1: { 
+                f2: function() { return this; }
+              , o2: {
+                      f3: function() { return this; }
+                    }
+               }
+
+        }
+
+console.log( (o.f1() === o )) ;   // true
+console.log( (o.o1.f2() === o.o1)) ;    // true
+console.log( (o.o1.o2.f3() === o.o1.o2)) ;    // true
+
+
+//</script>
+

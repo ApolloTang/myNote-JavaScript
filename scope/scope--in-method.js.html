@@ -1,0 +1,24 @@
+//<script Zsrc="//localhost:8001/lib/js/underscore-1.4.4.js" ></script>
+//<script>
+//var _ = _ || require('underscore');
+
+
+
+var a = 'a from outside function';
+var b = 'b from outside function';
+
+var C = function() {};
+C.prototype.method = function( arg ) {
+						  var b = 'b from inside function'
+						  arg(a, b);
+					  }
+
+var c1 = new C;      
+c1.method(function(a, b) { 
+		console.log('in callback, a: ', a); // in callback, a:  a from outside function
+		console.log('in callback, b: ', b); // in callback, b:  b from inside function
+	});
+
+
+//</script>
+

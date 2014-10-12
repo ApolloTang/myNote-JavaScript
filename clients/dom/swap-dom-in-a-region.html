@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>??Title??</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://localhost:8001/css/lib/normalize-2.1.2.css">
+<style media="screen" type="text/css">
+
+/* css here */http://localhost:8001/
+
+</style>
+    </head>
+    <body>
+    <p>
+<button id="btn-a">A</button><button id="btn-b">B</button><button id="btn-remove">-</button>
+<div id="region-1"> </div>
+</p>
+<!-- HTML HERE -->
+
+<script src="http://localhost:8001/js/lib/jquery-1.11.0.js"></script>
+<script>
+
+
+var cached = {};
+    cached.a = $('<p>a<input id="a" type="text" value="A" /></p>');
+    cached.b = $('<p>b<input id="b" type="text" value="B" /></p>');
+var $itemShown;
+var itemShownId;
+// $('#region-1').html($b);
+
+$("#btn-a").click(function(e){
+    $itemShown = $("#region-1 > [id]");
+    itemShownId = $itemShown.attr('id');
+    cached[itemShownId] = $itemShown.detach()
+    $('#region-1').html(cached.a);
+    console.log(itemShownId);
+    console.log('btn-a click');
+});
+$("#btn-b").click(function(e){
+    $itemShown = $("#region-1 > [id]");
+    itemShownId = $itemShown.attr('id');
+    cached[itemShownId] = $itemShown.detach()
+    $('#region-1').html(cached.b);
+    console.log(itemShownId);
+    console.log('btn-b click');
+});
+$("#btn-remove").click(function(e){
+    $itemShown = $("#region-1 > [id]");
+    itemShownId = $itemShown.attr('id');
+    cached[itemShownId] = $itemShown.detach()
+    $('#region-1').empty();
+    console.log(itemShownId);
+    console.log('remove click');
+});
+
+
+</script>
+    </body>
+</html>

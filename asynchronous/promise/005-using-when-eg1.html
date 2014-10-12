@@ -1,0 +1,52 @@
+//<script src="http://localhost:8001/js/lib/jquery-1.11.0.js"></script>
+//<script Zsrc="http://localhost:8001/lib/js/underscore-1.4.4.js" ></script>
+//<script>
+//var _ = _ || require('underscore');
+
+var log = function(content){
+    $('<p/>').html(content).appendTo('body');
+}
+
+function start(){
+
+}
+    
+$(function(){
+   
+$.when( 'initial data').then(function(data){
+                            var defer = $.Deferred();
+                            log('in 1: ' + data);
+                            setTimeout(function(){   
+                                log('executing 1');
+                                defer.resolve('result of 1');  
+                            }, Math.random()*1000);
+                            return defer.promise();
+                        }).then(function(data){
+                            var defer = $.Deferred();
+                            log('in 2: ' + data);
+                            setTimeout(function(){   
+                                log('executing 2');
+                                defer.resolve('result of 2');  
+                            }, Math.random()*1000);
+                            return defer.promise();
+                        }).then(function(data){
+                            var defer = $.Deferred();
+                            log('in 3: ' + data);
+                            setTimeout(function(){ 
+                                log('executing 3');
+                                defer.resolve('result of 3');   
+                            }, Math.random()*1000);
+                            return defer.promise();
+                        }).done(function(data){ 
+                                    log('in final: ' + data);
+                                    });
+                    });
+
+
+
+
+
+
+
+//</script>
+

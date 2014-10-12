@@ -1,0 +1,69 @@
+//<script src="http://localhost:8001/js/lib/underscore-1.4.4.js" ></script>
+//<script>
+try {
+    var _ = _ || require('underscore');
+    console.log('_.'+ _.VERSION);
+} catch(e) {
+    console.log('underscore unavailable');
+};
+
+var test_values = {
+    'null': null
+    ,'undefined' : undefined
+    ,'false': false
+};
+
+
+for (key in test_values) {
+    if ( test_values[key] == null ) {
+        console.log( '( '+ key + ' == null )', 'true');
+    } else {
+        console.log( '( '+ key + ' == null )', 'false');
+    }
+}
+
+console.log('- - - - - -  - - - - - -');
+
+for (key in test_values) {
+    if ( test_values[key] !== null ) {
+        console.log( '( '+ key + ' !== null )', 'true');
+    } else {
+        console.log( '( '+ key + ' !== null )', 'false');
+    }
+}
+
+console.log('- - - - - -  - - - - - -');
+
+for (key in test_values) {
+    if ( test_values[key] != null ) {
+        console.log( '( '+ key + ' != null )', 'true');
+    } else {
+        console.log( '( '+ key + ' != null )', 'false');
+    }
+}
+
+
+
+
+/*
+( null !== null ) false
+( undefined !== null ) true
+( false !== null ) true
+
+- - - - - - - - - - - -
+
+( null != null ) false
+( undefined != null ) false
+( false != null ) true
+
+- - - - - - - - - - - -
+
+( null == null ) true
+( undefined == null ) true
+( false == null ) false
+*/
+
+
+//</script>
+
+

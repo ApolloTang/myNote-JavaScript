@@ -1,0 +1,25 @@
+//<script Zsrc="//localhost:8001/lib/js/underscore-1.4.4.js" ></script>
+//<script>
+//var _ = _ || require('underscore');
+
+(function(){
+
+var outside = 'outside';
+var a = 'a_outside';
+
+console.log('scope: closure; outside f(). outside: ', outside);
+
+function f( arg ) { 
+    var b = 'inside'
+    arg(a, b);
+}
+
+f( function(a, b ) {
+
+    console.log('scope: inside callback pass to f(). outside: ', outside);
+    debugger;
+}); // a:  inside function
+
+})()
+//</script>
+

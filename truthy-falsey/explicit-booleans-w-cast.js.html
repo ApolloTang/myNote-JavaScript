@@ -1,0 +1,106 @@
+//<script src="http://localhost:8001/js/lib/underscore-1.4.4.js" ></script>
+//<script>
+try {
+    var _ = _ || require('underscore');
+    console.log('_.'+ _.VERSION);
+} catch(e) {
+    console.log('underscore unavailable');
+};
+
+var Table = require('cli-table');  
+//https://www.npmjs.org/package/cli-table 
+
+var test_values = {
+    'null': null
+    ,'undefined' : undefined
+    ,'false': false
+    ,'0': 0
+    ,'""':""
+    ,'NaN': NaN
+    ,'1':1
+    ,'[1,2,3]':[1,2,3]
+    ,'function(){}':function(){}
+};
+
+var a = {};
+a.b = function(key) { return test_values[key] };
+
+
+console.log('\n - - - - - - BAD - - - - - - - -');
+for (key in test_values) {
+    if (a.b(key)) console.log ( key + ' ' + a.b(key) + ' true'); 
+    if (!a.b(key)) console.log ( key + ' ' + a.b(key) + ' false');
+}
+
+
+console.log('\n - - - - - - GOOD- - - - - - - -');
+
+for (key in test_values) {
+    if ( Boolean( a.b(key)) ) console.log ( key + ' ' + Boolean(a.b(key)) + ' true'); 
+    if ( Boolean(!a.b(key)) ) console.log ( key + ' ' + Boolean(a.b(key)) + ' false');
+}
+
+
+console.log('\n - - - - - -  Boolean(X) === !!X  - - - - - - - -');
+
+var w = 20;
+var table = new Table ({
+    head: ['key', 'Boolean(a.b(key))', '!a.b(key)',  '!!a.b(key)' ]
+    , colWidths: [ w,w,w,w ]
+});
+for (key in test_values) {
+    table.push([key, String(Boolean(a.b(key))) , String(!a.b(key)) ,  String(!!a.b(key)) ]);
+};
+console.log(table.toString());
+
+/*
+ - - - - - - BAD - - - - - - - -
+0 0 false
+1 1 true
+null null false
+undefined undefined false
+false false false
+""  false
+NaN NaN false
+[1,2,3] 1,2,3 true
+function(){} function (){} true
+
+ - - - - - - GOOD- - - - - - - -
+0 false false
+1 true true
+null false false
+undefined false false
+false false false
+"" false false
+NaN false false
+[1,2,3] true true
+function(){} true true
+
+ - - - - - -  Boolean(X) === !!X  - - - - - - - -
+┌────────────────────┬────────────────────┬────────────────────┬────────────────────┐
+│ key                │ Boolean(a.b(key))  │ !a.b(key)          │ !!a.b(key)         │
+├────────────────────┼────────────────────┼────────────────────┼────────────────────┤
+│ 0                  │ false              │ true               │ false              │
+├────────────────────┼────────────────────┼────────────────────┼────────────────────┤
+│ 1                  │ true               │ false              │ true               │
+├────────────────────┼────────────────────┼────────────────────┼────────────────────┤
+│ null               │ false              │ true               │ false              │
+├────────────────────┼────────────────────┼────────────────────┼────────────────────┤
+│ undefined          │ false              │ true               │ false              │
+├────────────────────┼────────────────────┼────────────────────┼────────────────────┤
+│ false              │ false              │ true               │ false              │
+├────────────────────┼────────────────────┼────────────────────┼────────────────────┤
+│ ""                 │ false              │ true               │ false              │
+├────────────────────┼────────────────────┼────────────────────┼────────────────────┤
+│ NaN                │ false              │ true               │ false              │
+├────────────────────┼────────────────────┼────────────────────┼────────────────────┤
+│ [1,2,3]            │ true               │ false              │ true               │
+├────────────────────┼────────────────────┼────────────────────┼────────────────────┤
+│ function(){}       │ true               │ false              │ true               │
+└────────────────────┴────────────────────┴────────────────────┴────────────────────┘
+*/
+
+// reference http://james.padolsey.com/javascript/truthy-falsey/
+//</script>
+
+

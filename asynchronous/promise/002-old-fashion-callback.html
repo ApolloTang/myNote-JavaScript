@@ -1,0 +1,39 @@
+//<script src="http://localhost:8001/js/lib/jquery-1.11.0.js"></script>
+//<script Zsrc="http://localhost:8001/lib/js/underscore-1.4.4.js" ></script>
+//<script>
+//var _ = _ || require('underscore');
+
+var log = function(content){
+    $('<p/>').html(content).appendTo('body');
+}
+
+function doTask(i, next){
+    setTimeout(function(){
+        log("Step " + ++i + " finished.");
+        next();
+    }, Math.random()*1000);
+}
+    
+$(function(){
+    doTask(0, function(){
+        doTask(1, function(){
+            doTask(2, function(){
+                doTask(3, function(){
+                    doTask(4, function(){
+                        log("All steps done.");
+                    });
+                });
+            });
+        });
+    });
+});
+
+
+
+
+
+
+
+
+//</script>
+

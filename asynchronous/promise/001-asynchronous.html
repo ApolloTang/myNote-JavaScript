@@ -1,0 +1,34 @@
+//<script src="http://localhost:8001/js/lib/jquery-1.11.0.js"></script>
+//<script Zsrc="http://localhost:8001/lib/js/underscore-1.4.4.js" ></script>
+//<script>
+//var _ = _ || require('underscore');
+
+var log = function(content){
+    $('<p/>').html(content).appendTo('body');
+}
+
+function doStep(i){
+    setTimeout(function(){
+        log("Step " + ++i + " finished.");
+    }, Math.random()*1000);
+}
+    
+$(function(){
+console.log('start')
+    var i;
+    for(i = 0; i < 5; i++){
+        doStep(i);
+    }
+
+    log("All steps done.");
+});
+
+
+
+
+
+
+
+
+//</script>
+
