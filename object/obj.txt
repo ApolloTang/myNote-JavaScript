@@ -1,0 +1,29 @@
+
+Anything that is not the following is an object
+    string
+    number
+    boolean
+    null
+    undefined
+
+3 kinds of objects:
+    1. Navtive: defined by ECMA specification
+    2. Hosted:  defined by host enviroment within which the JS interpreter is embeded.
+    3. User-definded
+
+Object has properties and attributes:
+    properties
+        name         : any string (include empty string)
+        value        : - a immutable primitive value or another object
+                       - getter, setter (ECMA 5)
+    property attribute (ECMA 5)
+        writable     : whether value can be set
+        enumerable   : whether name can be returned by for/in loop
+        configurable : whether property can be deleted,
+                       and wether its attributes can be altered
+    object attribute (ECMA 5))
+        prototype    : reference to other object
+        class        : a string to categorized the type
+        extensible   : whether new properties may be addded
+
+

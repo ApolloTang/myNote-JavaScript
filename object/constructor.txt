@@ -1,0 +1,96 @@
+
+
+::: Varifying the type of an object instance
+
+    There are two ways to varify the type of an object instance:
+        1. using "instenceof" operator, or
+        2. using strick equality to see if the constructor property on
+           the instance points to the constructor
+
+        function P() {};
+        var p1 = new
+
+        console.log( p1 instanceof P );       //true
+        console.log( p1.constructor === P );  //true
+
+    However, the second method is unrealiable because it is possible to
+    alter the reference which the constructor property point to:
+
+        function Q() {};
+        p1.constructor = Q;
+        console.log( p1.constructor === P ); //false
+        console.log( p1 instanceof P );      //true
+
+
+
+::: Define constructor and instantiate in one line
+
+        var q1 = new ( function() { this.b = "b"; } );
+        console.log(q1.constructor);                // function() ...
+        console.log(typeof q1);                     // "object"
+        console.log(q1 instanceof q1.constructor ); // true
+        console.log(typeof q1.constructor );        // "function"
+
+
+
+::: What happen when you instantiate a custom comstrutor:
+
+    When you invoke the constructor function with "new", the following
+    happens inside the constructor function:
+
+    • An object is created internally and referenced by "this".
+    • This newly created internal object inherites the prototype
+      properties of the constructor.
+    • Properties and methods defined in the constructor function
+      are duplicated on the newly created internal object.
+    • This newly created object is implicitly returned at the
+      end of the function if no other object is return explicitly.
+
+        > If the explicitly returned object is non-premitive type
+          (like a object literal, or an array), then this no-premitive
+          object will be returned.
+        > If the explicitly returned object is one of the premitive
+          type (such as string, or a boolean), then the premitve
+          object will be ignored and the object reference by "this"
+          will be returned.
+
+            console.log(
+                new ( function() { this.a="a"; return "primitive"; } )
+            );
+            // {a:"a"}
+
+            console.log(
+                new ( function() {this.a="a"; return ["array"] })
+            );
+            // ["array"]
+
+
+::: using constructor without the "new" keyword
+
+        Without the key word "new", P is just a plain function without
+        a return statement. (A constructor will implicitly return an object )
+
+            var P = function() {
+                    this.a = "a";
+                    console.log(this)  //Window  <<<< this is global
+                };
+            var p1 = P();
+            console.log(window.a) // "a"
+            console.log(typeof p1) // undefined
+
+        In a plain function "this" is reference to global window object.
+        or "undefined" in ECMA 5:
+
+
+            var P = function() {
+                    "use strict"        // ECMA 5
+                    try { this.a = "a"; } catch(er) { console.log('error'); }
+                    console.log(this);  // undefined
+                };
+            var p1 = P();
+            console.log(window.a);      // undefined
+            console.log(typeof p1);     // undefined
+
+
+
+

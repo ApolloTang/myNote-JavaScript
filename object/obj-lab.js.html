@@ -1,0 +1,39 @@
+//<head><title>js_obj</title></head>
+//<script src="http://localhost:8001/js/lib/underscore-1.4.4.js" ></script>
+//<script>
+try {
+    var _ = _ || require('underscore');
+    console.log('_.'+ _.VERSION);
+} catch(e) {
+    console.log('underscore unavailable');
+};
+
+
+var P = function() { this.a = 'a'; };
+P.prototype.b = "b";
+p1 = new P;
+console.log(Object.keys(p1));
+console.log('- - - - - - - - - - - - - - - - - - - - - - - -');
+var key;
+for (key in p1 ) {
+    console.log(key)
+};
+console.log('- - - - - - - - - - - - - - - - - - - - - - - -');
+
+var k;
+for (k in p1.__proto__ ) {
+    console.log(k)
+}
+console.log('- - - - - - - - - - - - - - - - - - - - - - - -');
+
+for (k in Object) {
+    console.log(k)
+};
+        console.log(' can not enumerate navitve properties');
+
+
+
+
+
+//</script>
+
