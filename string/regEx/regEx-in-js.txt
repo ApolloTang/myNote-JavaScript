@@ -1,0 +1,28 @@
+Strings support four methods that use regular expressions.
+
+    1. search()
+    2. replace()
+
+
+1. search(arg)
+
+    > "JavaScript".search(/script/i);
+    > 4
+
+
+    arg: A regular-expression.
+         If arg is not a regular express, it is first convert
+         to one by passing it to the RegExp constructor.
+    return : returns the character position of the start of the first matching substring
+             or −1 if there is no match
+
+    does not support global searhes; it ignores the g flag.
+
+2. replace(regEx, replcement-string )
+
+    Performs a search-and-replace operation.
+
+
+    regEx
+
+
