@@ -10,11 +10,16 @@ Strings support four methods that use regular expressions.
     > 4
 
 
-    arg: A regular-expression.
+    arg:
+
+         A regular-expression.
          If arg is not a regular express, it is first convert
          to one by passing it to the RegExp constructor.
-    return : returns the character position of the start of the first matching substring
-             or −1 if there is no match
+
+    return :
+
+         returns the character position of the start of the first matching substring
+         or −1 if there is no match
 
     does not support global searhes; it ignores the g flag.
 
@@ -22,7 +27,9 @@ Strings support four methods that use regular expressions.
 
     Performs a search-and-replace operation.
 
+    regEx:
 
-    regEx
+
+
 
 
