@@ -4,7 +4,7 @@ Where does promise come from?
 
     Promise is created from a defered.
 
-What kinds of functions return promises?
+What kind of function returns promises?
 =========================================
 
     There are three ways you can receive a promise using jQuery:
@@ -30,27 +30,15 @@ What kinds of functions return promises?
 what can happened to your promiss?
 ==================================
 
-    1. resolve   - success
-    2. reject    - errors has occurs
-    3. progress  -
+    1. done()     // resolve : deferred has been resolved success
+    2. fail()     // reject  : errors has occurs
+    3. progress() // report periodically on the progress of the asynchronous activity
+    4. always()   // deferred is resolved or reject.
 
-    We’ll sometimes informally say a deferred or a promise has fired
-    By this we mean that the deferred was rejected or resolved, but
-    that we don’t care which.
+    - These methods are chain after promise and used to arrange
+      for a callback to be called if the deferred is resolved:
 
-done()
-------
-
-    done() is use to arrage for a callback to be called if the deferred
-    is resolved:
-
-        promise.done(function(result){
-            console.log('the promise was resolved with', result);
-        });
-
-    The argument of callback will have the deffered to be resolved.
-
-    done can be called many times on the same promise:
+    - These methods be called many times on the same promise:
 
         no sure which sytax is valid:
 
@@ -62,36 +50,31 @@ done()
 
             promise.done(callback_1).done(callback_2).done(callback_3);
 
-    Each callback will be added to the list of functions to be execed
-    when the promise is resolved.
+        Each callback will be added to the list of functions to be execed
+        when the promise is resolved.
 
-    done() will ignore returns from callback, so there is no point
-    to returning a value from callback. If you want to keep the return
-    value from callback, use then().
-
-
-fail()
-======
-
-    similar to done() but for reject
+    - These methods ignore returns value from callback, so there is no point
+      in returning a value within callback function. If you want to keep the return
+      value from callback, use then().
 
 
-always()
-========
 
-    callback will always called no matter the original deferred
-    is resolved or reject.
+    comment on always()
 
-        promise.always(function(value){
-            // The deferred fired with value, either via its resolve
-            // or reject method.
-                console.log('The promise fired with value', value);
-        });
+        callback passed into always() will always called no matter
+        the original deferred is resolved or reject:
 
-    Note in the above, within the callback you cannot tell whether
-    arguments "value" comes from the deferred being resolved or rejected.
+            promise.always(function(value){
+                // The deferred fired with value, either via its resolve
+                // or reject method.
+                    console.log('The promise fired with value', value);
+            });
 
-progress()
-==========
+        Note in the above, within the callback you cannot tell whether
+        arguments "value" comes from the deferred being resolved or rejected.
 
-    Report periodically on the progress of the asynchronous activity
+        Always() is used when a deferred or a promise has fired.
+        By "fired", we informmally meant that the deferred was
+        rejected or resolved, but that we don’t care which.
+
+
