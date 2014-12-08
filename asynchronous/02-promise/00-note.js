@@ -45,3 +45,10 @@
 
 // .... hmmmm.... what is the different between "done" and "then"  ?
 
+
+    $('div').each(function(i){
+        $(this).fadeIn().fadeOut(1000 * (i + 1));
+    });
+    $('div').promise().done(function(){
+        // All <div> animations are finished.
+    });
