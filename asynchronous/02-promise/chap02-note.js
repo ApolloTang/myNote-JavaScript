@@ -9,34 +9,37 @@ What kinds of functions return promises?
 
     There are three ways you can receive a promise using jQuery:
 
-        1. $.ajax
+        1. $.ajax method returns promise()
 
             var promise = $.ajax('http://google.com');
             promise.done(callback);
 
-        2. jQuery animation
+        2. jQuery animation method returns promise()
 
             var promise = $('#label').animate({ opacity: 0.25 }, 100).promise();
             promise.done(callback);
 
-        3. Dom elements selected  with jQuery
+        3. Dom elements selected with jQuery returns promise()
 
-            $div = $('div').each(function(){ $(this).fadeIn().fadeOut(1000));});
+            var $div = $('div').each(function(){ $(this).fadeOut(1000));});
             $div.promise().done(function(){
                 // All <div> animations are finished.
             });
 
+
 what can happened to your promiss?
+==================================
+
     1. resolve   - success
     2. reject    - errors has occurs
     3. progress  -
 
-We’ll sometimes informally say a deferred or a promise has fired
-By this we mean that the deferred was rejected or resolved, but
-that we don’t care which.
+    We’ll sometimes informally say a deferred or a promise has fired
+    By this we mean that the deferred was rejected or resolved, but
+    that we don’t care which.
 
 done()
-======
+------
 
     done() is use to arrage for a callback to be called if the deferred
     is resolved:
