@@ -73,8 +73,28 @@ what can happened to your promiss?
         Note in the above, within the callback you cannot tell whether
         arguments "value" comes from the deferred being resolved or rejected.
 
-        Always() is used when a deferred or a promise has fired.
+        Always() is used when a deferred or a promise has *fired*.
         By "fired", we informmally meant that the deferred was
-        rejected or resolved, but that we don’t care which.
+        rejected or resolved, but that we don’t know which and we don't
+        care which.
 
 
+then()
+======
+
+        promise.then(
+            function(result){
+                // The deferred was resolved with result. Double it and pass it on.
+                return 2 * result;
+            }
+            , function(error){
+                // The deferred was rejected with error. Log it and pass on a different
+                // (null) error.
+                console.log('Error received:', error);
+                return null;
+            }
+            , function(value){
+            // The deferred made progress. Convert it to a percentage string.
+            return Math.round(value * 100.0) + '%';
+        }
+        );
