@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>??Title??</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://localhost:8001/css/lib/normalize-2.1.2.css">
+        <style media="screen" type="text/css">
+
+        /* css here */
+
+        </style>
+    </head>
+    <body>
+
+        <!-- HTML HERE -->
+
+        <canvas id="canvas" width="700" height="500"></canvas>
+
+        <script src="http://localhost:8001/js/lib/jquery-1.11.0.js"></script>
+        <script>
+            // original from:
+            // http://www.intridea.com/blog/2011/2/8/fun-with-jquery-deferred
+
+            // function wait(timeout){
+            //     var deferred = $.Deferred();
+            //     setTimeout(deferred.resolve, timeout);
+            //     return deferred.promise();
+            // }
+
+            // function wait(timeout){
+            //     var differed = $.Deferred( function(deffered){
+            //         setTimeout( deferred.resolve, timeout);
+            //     });
+            //     return diferred.promise();
+            // }
+
+            // wait(500).done(function(){
+            //     console.log('Timeout fired!');
+            // });
+
+
+            function config(deferred) {
+                var timeout = 500;
+                setTimeout( deferred.resolve, timeout);
+            }
+            function wait(opt){
+                var deferred = $.Deferred(opt);
+                return deferred.promise();
+            }
+            wait(config).done(function(){
+                console.log('Timeout fired!');
+            })
+
+        </script>
+    </body>
+</html>
