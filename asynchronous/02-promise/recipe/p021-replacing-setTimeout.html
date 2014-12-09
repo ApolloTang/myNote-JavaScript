@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>??Title??</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://localhost:8001/css/lib/normalize-2.1.2.css">
+        <style media="screen" type="text/css">
+
+        /* css here */
+
+        </style>
+    </head>
+    <body>
+
+        <!-- HTML HERE -->
+
+        <canvas id="canvas" width="700" height="500"></canvas>
+
+        <script src="http://localhost:8001/js/lib/jquery-1.11.0.js"></script>
+        <script>
+
+            // original from:
+            // http://www.intridea.com/blog/2011/2/8/fun-with-jquery-deferred
+
+            function wait(timeout){
+                var deferred = $.Deferred();
+                setTimeout(deferred.resolve, timeout);
+                return deferred.promise();
+            }
+
+            wait(500).done(function(){
+                console.log('Timeout fired!');
+            });
+
+            /*
+                Use the above to replace setTimeout function:
+
+                    setTimeout(function(){
+                        console.log('Timeout fired!');
+                    }, 500);
+
+                The promise returned by the wait function is a representation
+                of the timeout that can be reused and passed around your code
+                in ways that would be impossible if use the plain old setTimeout
+                function.
+            */
+        </script>
+    </body>
+</html>

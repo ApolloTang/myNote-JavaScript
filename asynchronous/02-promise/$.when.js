@@ -45,7 +45,7 @@
             // arguments holds the result returned by the finalize function.
         });
 
-    $.when also correctly handles the case in which the value returned
+    $.when also correctly handles the situation when the value returned
     by either (or both) of firstAction or secondAction is not a deferred.
 
 
