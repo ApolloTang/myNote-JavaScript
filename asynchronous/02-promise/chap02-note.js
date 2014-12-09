@@ -94,7 +94,7 @@ then()
                 return null;
             }
             , function(value){
-            // The deferred made progress. Convert it to a percentage string.
-            return Math.round(value * 100.0) + '%';
+                // The deferred made progress. Convert it to a percentage string.
+                return Math.round(value * 100.0) + '%';
         }
         );
