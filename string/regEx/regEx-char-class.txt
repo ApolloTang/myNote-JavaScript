@@ -1,0 +1,67 @@
+
+Chracter Class
+==============
+
+    Character classes are form by placing individual literal characters
+    with in square brackets. Eg:
+
+        /[abc]/
+
+
+Negated character class
+=======================
+
+    This is specify by placing a caret (^) as tthe frist character
+    inside the left bracket
+
+        /[^abc]/
+
+Range of characters
+===================
+
+    /[a-z]/
+    /[a-zA-Z0-9]/
+
+
+
+Regular expression character classes
+====================================
+
+Character   |   Matches
+------------|------------------------------------
+    .       |   Any character except newline or another Unicode line terminator.
+    \w      |   Any ASCII word character. Equivalent to [a-zA-Z0-9_].
+    \W      |   Any character that is not an ASCII word character. Equivalent to [^a-zA-Z0-9_].
+    \s      |   Any Unicode whitespace character.
+    \S      |   Any character that is not Unicode whitespace.
+    \d      |   Any ASCII digit. Equivalent to [0-9].
+    \D      |   Any character other than an ASCII digit. Equivalent to [^0-9].
+    [\b]    |   A literal backspace (special case).
+
+
+    § Note that \w and \S are not the same thing.
+        \S can include puctuation, but \w does not
+
+    § Note that several of these character-class escape sequences match
+    only ASCII characters and have not been extended to work
+    with Unicode characters. You can, however, explicitly define
+    your own Unicode character classes; for example,
+
+        /[\u0400-\u04FF]/     // matches any one Cyrillic character.
+
+    § Note that the special character-class escapes can be used within
+    square brackets; for example,
+
+        \s matches any whitespace character, and \d matches any digit,
+        so /[\s\d]/ matches any one whitespace character or digit.
+
+    However, there is one special case: the \b escape has a special
+    meaning. When used within a character class, however, it represents
+    the backspace character. Thus, to represent a backspace character
+    literally in a regular expression, use the character class with
+    one element: /[\b]/.
+
+
+
+
+
