@@ -2,27 +2,196 @@ Strings support four methods that use regular expressions.
 
     1. search()
     2. replace()
+    3. match()
 
-
+----------------------------
 1. search(arg)
 
     > "JavaScript".search(/script/i);
     > 4
 
 
-    arg: A regular-expression.
-         If arg is not a regular express, it is first convert
-         to one by passing it to the RegExp constructor.
-    return : returns the character position of the start of the first matching substring
-             or −1 if there is no match
+    @Arguments
+
+        arg:
+             A regular-expression.
+             If arg is not a regular express, it is first convert
+             to one by passing it to the RegExp constructor.
+
+    @Return
+
+         returns the character position of the start of the first matching substring
+         or −1 if there is no match
 
     does not support global searhes; it ignores the g flag.
 
+
+
+----------------------------
 2. replace(regEx, replcement-string )
+
+    > test.replace(/javascript/gi, "JavaSCript");
 
     Performs a search-and-replace operation.
 
+    Takes a regular expression as its first argument and
+    a replacement string as its second argument.
 
-    regEx
+    If the reglluar expression has the 'g' flag set,
+    all matches in the string is replaced with the replacement string;
+    otherwise, only the first match is replaced.
+
+    If first arguments is a string rather then a regEx,
+    the method searches for that string literally. Unlike search() it will
+    not convert to regEx with RegExp() constructor.
 
 
+----------------------------
+3. match()
+
+    The match() method is the most general of the String regular
+    expression methods.
+
+    It takes a regular expression as its only argument (or converts
+    its argument to a regular expression by passing it to the
+    RegExp() constructor)
+
+    returns an array that contains the results of the match.
+
+    If the regular expression has the g flag set, the method returns
+    an array of all matches that appear in the string. For example:
+
+    "1 plus 2 equals 3".match(/\d+/g) // returns ["1", "2", "3"]
+
+------------------------------
+
+The RegExp Object
+=================
+
+The RegExp() constructor takes one or two string arguments and creates a new RegExp
+object.
+
+The first argument:
+
+    A string that contains the body of the regular expression.
+    i.e., the text that would appear within slashes in a regular
+    expression literal.
+
+    [!] Note that both string literals and regular expressions use
+    the \ character for escape sequences, so when you pass a regular
+    expression to RegExp() as a string literal, you must replace
+    each \ character with \\.
+
+The second argument [optional]:
+
+    If supplied, it indicates the regular-expression flags.
+    It should be g, i, m, or a combination of those letters.
+
+Example:
+
+    // Find all five-digit numbers in a string. Note the double \\ in this case.
+    var zipcode = new RegExp("\\d{5}", "g");
+
+Properties on RegExp:
+
+    source, global, ignoreCse, multiline, lastIndex
+
+Methods on RegExp:
+
+
+    .exec() , .test()
+
+
+.exec()
+=======
+
+    Similar to the String match() method except that it is a RegExp
+    method that takes a string, rather than a String method that
+    takes a RegExp.
+
+    The exec() method searchese the specified string for a match.
+
+    When exec() is called on a regular expression obj created *without* the 'g' flag:
+
+        Returns:
+
+            null if no match, however, it returns an array just
+            like the array returned by the match() method for nonglobal
+            searches.
+
+            Element 0 of the array contains the string that matched
+            the regular expression
+
+            Subsequent array elements contain the substrings that
+            matched any parenthesized subexpressions.
+
+        Properties:
+
+            index:
+            contains the character position at which the match occurred.
+
+            input:
+            property refers to the string that was searched.
+
+
+    When exec() is called on a regular expression obj created *with* the 'g' flag:
+
+        regEx.lastIndex = the character position immediately
+                          following the matched substring.
+
+        When regEx.exec() is invoked a second time for the same regular expression,
+        it begins its search at the character position indicated by the lastIndex property.
+
+        If exec() does not find a match, it resets lastIndex to 0.
+
+        You can also set lastIndex to 0 at any time, which you
+        should do whenever you quit a search before you find
+        the last match in one string and begin searching another
+        string with the same RegExp object.
+
+        This special behavior allows you to call exec() repeatedly
+        in order to loop through all the regular expression matches in
+        a string. For example:
+
+            var pattern = /Java/g;
+            var text = "JavaScript is more fun than Java!";
+            var result;
+            while((result = pattern.exec(text)) != null) {
+                alert( "Matched '" + result[0] + "'" +
+                       " at position " + result.index +
+                       "; next search begins at " + pattern.lastIndex);
+            }
+
+
+        match() vs regEx.exec():
+
+            Unlike the match() method, exec() returns the same kind of array
+            whether or not the regular expression has the global g flag.
+
+            Recall that match() returns an array of matches when passed a global
+            regular expression. exec(), by contrast, always returns a single
+            match and provides complete information about that match.
+
+
+.test()
+=======
+
+    Takes a string and returns true if the string contains a match
+    for the regular expression:
+
+        var pattern = /java/i;
+        pattern.test("JavaScript"); // Returns true
+
+    Calling test() is equivalent to calling exec() and returning
+    true if the return value of exec() is not null.
+
+
+[!!!!! ]
+    If you use exec() or test() on a pattern that has the g flag
+    set, and you are searching multiple strings, you must either
+    find all the matches in each string so that lastIndex is automatically
+    reset to zero (this happens when the last search fails), or you
+    must explicitly set the lastIndex property to 0 yourself. If
+    you forget to do this, you may start searching a new string at
+    some arbitrary position within the string rather than from the
+    beginning.
