@@ -23,31 +23,34 @@
         <script>
             // original from:
             // http://www.intridea.com/blog/2011/2/8/fun-with-jquery-deferred
-
+            //
             // function wait(timeout){
             //     var deferred = $.Deferred();
             //     setTimeout(deferred.resolve, timeout);
             //     return deferred.promise();
             // }
 
+            // ------  book's solutiona -----//
+            //
             // function wait(timeout){
             //     var differed = $.Deferred( function(deffered){
             //         setTimeout( deferred.resolve, timeout);
             //     });
             //     return diferred.promise();
             // }
-
+            //
             // wait(500).done(function(){
             //     console.log('Timeout fired!');
             // });
 
+            // -----  My solution ------- //
 
             function config(deferred) {
                 var timeout = 500;
                 setTimeout( deferred.resolve, timeout);
             }
-            function wait(opt){
-                var deferred = $.Deferred(opt);
+            function wait( initialize ){
+                var deferred = $.Deferred( initialize );
                 return deferred.promise();
             }
             wait(config).done(function(){

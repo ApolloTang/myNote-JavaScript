@@ -23,20 +23,27 @@
         <script>
 
 
-            function one(p) { p.done(
-                    function(data){
-                        console.log(data);
-                        }
-                ); }
+            function one(p) {
+                console.log(p)
+                p.fail( function(data) { console.log(data) } );
+                p.done( function(data) { console.log(data) } );
+            }
 
             function wait(time){
                 var deferred = $.Deferred();
-                setTimeout( function(){deferred.resolve('hello')}, time)
-                return deferred.promise();
+                // var handler = setTimeout( function(){ deferred.resolve('hello') }, time );
+                var promise = deferred.promise();
+                promise.cancel = function() {
+                    console.log('cancel called', arguments )
+                    // clearTimeout( handler );
+                    deferred.reject.apply( deferred, arguments );
+                    // deferred.reject('rejected');
+                };
+                return promise;
             }
 
-            var promise = wait(2000);
-            one(promise);
+            var promise = wait(3000);
+            one( promise );
 
         </script>
     </body>

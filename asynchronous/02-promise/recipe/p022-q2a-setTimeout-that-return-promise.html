@@ -23,26 +23,20 @@
         <script>
 
 
-            function one() { console.log('1');}
-            function two() { console.log('2');}
-
-            function config_fn(deferred) {
-                var timeout = 500;
-                var handle = setTimeout( deferred.resolve, timeout);
-                return {
-                            handle : handle
-                            , otherStuff: "otherStuff"
-                       };
+            function one(p) {
+                p.done( function(data){console.log(data);} );
             }
-            function wait(fn){
-                var deferred = $.Deferred(fn);
-                console.log(deferred)
+
+            // wait is a setTimeout utility that return a promise
+            // which can use for other purpose
+            function wait(time){
+                var deferred = $.Deferred();
+                setTimeout( function(){deferred.resolve('hello')}, time );
                 return deferred.promise();
             }
-            wait( config_fn ).then(function(){
-                one();
-                two();
-            })
+
+            var promise = wait(2000);
+            one(promise);
 
         </script>
     </body>
