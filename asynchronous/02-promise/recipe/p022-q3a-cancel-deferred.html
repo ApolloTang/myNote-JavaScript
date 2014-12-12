@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>??Title??</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://localhost:8001/css/lib/normalize-2.1.2.css">
+        <style media="screen" type="text/css">
+
+        /* css here */
+
+        </style>
+    </head>
+    <body>
+
+        <!-- HTML HERE -->
+
+        <canvas id="canvas" width="700" height="500"></canvas>
+
+        <script src="http://localhost:8001/js/lib/jquery-1.11.0.js"></script>
+        <script>
+
+
+            function functionToProcessPromise(promise) {
+                console.log(promise)
+                promise.fail( function(data) { console.log('fail: deferred has been resolve, data: ', data, this) } );
+                promise.done( function(data) { console.log('done: deferred has been rejected, data: ', data) } );
+                promise.cancel('bye')
+                // or omment out the above and type in console "p.cancel('bye')" in less then 3 sec
+                window.p = promise;
+            }
+
+            // function wait() is a promise
+            function wait(time){
+                var deferred = $.Deferred();
+                var handler = setTimeout( function(){ deferred.resolve('hello') }, time );
+                var promise = deferred.promise();
+
+                // Note that it is not a good practice adding attributes to promise.
+                // This is just for demo purpose.
+                promise.cancel = function(arg) {
+                    console.log('cancel called')
+                    deferred.reject.call( deferred, arg );
+                                        //  ^---- setting the "this" context in the callback pass to promise.fail()
+                    // deferred.reject(arg);  // this is the same as above line
+                };
+                return promise;
+            }
+
+            var promise = wait(3000);
+            functionToProcessPromise( promise );
+
+        </script>
+    </body>
+</html>
