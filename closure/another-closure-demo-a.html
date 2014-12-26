@@ -1,0 +1,18 @@
+//<script>
+
+"use strict";
+
+var x,y, fns = [];
+
+for(x=0; x<5; x++){
+    fns.push(function(){
+        console.log(x);
+    });
+}
+
+for (y=0; y<5; y++){
+    fns[y]();
+}
+
+//</script>
+
