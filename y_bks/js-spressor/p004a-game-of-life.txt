@@ -1,0 +1,13 @@
+Conway's Game of Life
+
+ref: https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+
+Rules:
+
+    neightbours  = 1, die
+    neightbours  = 2, live
+    neightbours  = 3, live
+    neightbours  = 4, die
+
+
+
