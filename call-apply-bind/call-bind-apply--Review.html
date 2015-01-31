@@ -1,0 +1,19 @@
+//<script>
+
+var o = { f: function(){ return this } };
+
+console.log(o.f()) // { f: function() }
+
+o2 = o.f
+
+console.log(o2()) // window
+
+console.log(o2.call({a:'a'})) // {a:'a'}
+console.log(o2.apply({a:'a'}, [])) // {a:'a'}
+
+o3 = o.f.bind({a:'a'});
+
+console.log(o3()) // {a:'a'}
+
+//</script>
+
