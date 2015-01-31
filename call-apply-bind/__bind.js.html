@@ -1,17 +1,17 @@
 //<script>
 
 __bind = function(fn, me) {
-        return function() {
-        debugger;
-            return fn.apply(me, arguments);
-        };
-    }
+    return function() {
+        return fn.apply(me, arguments);
+    };
+}
 
-    var f = function() {
-        console.log('this: ', this);
-    }
+var f = function() {
+    console.log('this: ', this);
+}
 
-    g = __bind(f, {a:'a'});
+g = __bind(f, { a: 'a' });
 
+g(); // 'this: {a:'a'}
 
 //</script>
