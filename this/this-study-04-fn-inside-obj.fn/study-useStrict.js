@@ -1,4 +1,4 @@
-
+'use strict';
 var o = {
     fn1: function() {
         var that = this;
