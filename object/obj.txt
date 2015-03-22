@@ -1,29 +1,85 @@
 
-Anything that is not the following is an object
+Anything that is not the following is an object:
+
     string
     number
     boolean
     null
     undefined
 
-3 kinds of objects:
+three categories of objects:
+
     1. Navtive: defined by ECMA specification
     2. Hosted:  defined by host enviroment within which the JS interpreter is embeded.
     3. User-definded
 
-Object has properties and attributes:
-    properties
-        name         : any string (include empty string)
-        value        : - a immutable primitive value or another object
-                       - getter, setter (ECMA 5)
-    property attribute (ECMA 5)
-        writable     : whether value can be set
-        enumerable   : whether name can be returned by for/in loop
-        configurable : whether property can be deleted,
-                       and wether its attributes can be altered
-    object attribute (ECMA 5))
+two categories of properties:
+
+    1. own property
+    2. inherited property
+
+
+Object also has attributes associated with it:
+
+    object attribute (ECMA 5):
+
         prototype    : reference to other object
         class        : a string to categorized the type
         extensible   : whether new properties may be addded
 
+
+Object contents properties, and a property has (1) name, (2) value
+and, (3) attributes associate to that properties:
+
+    (1) name:
+
+            name of a property can be any string (include empty string)
+
+    (2) value :
+
+            value of a property can be either "simple data value" or "accessor value":
+
+            • simple data value:
+                - can be any JS value (immutable primitive value or another object)
+                - if simple data value is present this property is call *data property*
+            • accessor value:
+                - ECMA 5 feature
+                - consist of a getter method and a setter method
+                - either a getter or a setter or both getter and setter are present
+                - if accessor value is present this property is call *accessor property*
+
+    (3) property attributes: property attribute has three items:
+
+        3a. writable attributes     : whether value can be set
+        3b. enumerable attributes   : whether name can be returned by for/in loop
+        3c. configurable attributes : whether property can be deleted, and whether
+                                       its attributes can be altered
+
+
+    For simplicity and to help understanding, you can consider value of a
+    property being attribute of that property.
+
+    Follow this logic, a property has a name a set of four attributes:
+
+        The four attributes of a data property are
+
+                value,
+                writable,
+                enumerable, and
+                configurable.
+
+        The four attributes of an accessor property are
+
+                get method,
+                set method,
+                enumerable, and
+                configurable.,
+
+            Accessor properties don’t have a value attribute or a writable attribute:
+                their writability is determined by the presence or absence of a setter.
+
+
+
+
+--------------------------------------------------------------------
 

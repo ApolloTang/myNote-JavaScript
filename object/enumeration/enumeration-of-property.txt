@@ -1,0 +1,42 @@
+
+Enumerable properties:
+
+    • Enumerable properties has their [[Enumeratble]] attribute set to true
+    • When a properties is enumerable, it means they can be iterated with for-in loop
+      and Object.keys() method
+    • By default all properties that you add to an object are Enumerable
+
+    Here is how you enumerate property on a object.
+
+        var propertyName;
+        for (propertyName in myObject) {
+            // propertyName hold the name of preperty
+        }
+
+    Alternately you can obtain an array list of these names with:
+
+        var PropertyNames = Object.keys(myOBject);  // <-- type array;
+
+    Typically, you would use Object.keys() in situations where you
+    want to operate on an array of property names and for-in when
+    you don’t need an array.
+
+
+    [!] Becareful though:
+
+        for-in will also enumerates properties on prototype
+        Objects.keys() array contains only object's own (instance) properties
+
+
+Non Enumerable propeties:
+
+    Enumerable properties has their [[Enumeratble]] attribute set to false.
+    most native methods on objects are non-enumerable.
+
+You can check whether a roperty is enumerable with
+
+    Object.propertyIsEnumerable();
+
+
+
+
