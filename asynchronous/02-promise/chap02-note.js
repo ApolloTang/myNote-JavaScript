@@ -2,24 +2,27 @@
 Where does promise come from?
 =============================
 
-    Promise is created from a defered.
+    1. in jQuery library, promise is created from a defered:
 
-What kind of function returns promises?
-=========================================
+            var deferred = $.Deferred(),
+            promise = deferred.promise();
+
+
+    2. Some jQuery method also returns promises
 
     There are three ways you can receive a promise using jQuery:
 
-        1. $.ajax method returns promise()
+        a. $.ajax method returns promise()
 
             var promise = $.ajax('http://google.com');
             promise.done(callback);
 
-        2. jQuery animation method returns promise()
+        b. jQuery animation method returns promise()
 
             var promise = $('#label').animate({ opacity: 0.25 }, 100).promise();
             promise.done(callback);
 
-        3. Dom elements selected with jQuery returns promise()
+        c. Dom elements selected with jQuery returns promise()
 
             var $div = $('div').each(function(){ $(this).fadeOut(1000));});
             $div.promise().done(function(){
