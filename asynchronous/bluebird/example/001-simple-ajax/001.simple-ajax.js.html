@@ -1,0 +1,32 @@
+//<script src="http://localhost:8001/js/lib/jquery-1.11.0.js" ></script>
+//<script src="http://localhost:8001/js/lib/bluebird-v2.9.21.js" ></script>
+//<script>
+
+
+function ajaxGetAsync(url) {
+
+    return new Promise( function(resolve, reject) {
+
+        window.resolve = resolve;
+        window.reject = reject;
+
+        var xhr = new XMLHttpRequest;
+        xhr.addEventListener("error", reject);
+        xhr.addEventListener("load", resolve);
+        xhr.open("GET", url);
+        xhr.send(null);
+    });
+}
+
+var promise = ajaxGetAsync('http://localhost:8224/test.json');
+
+promise
+    .then(function(result){
+            console.log('result: ', result.target.response);
+    })
+    .catch(function(er){
+            console.log('error: ', er);
+    });
+
+//</script>
+
