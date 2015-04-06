@@ -1,0 +1,30 @@
+//<script src="http://localhost:8001/js/lib/jquery-1.11.0.js" ></script>
+//<script src="http://localhost:8001/js/lib/bluebird-v2.9.21.js" ></script>
+//<script>
+
+
+var myDeferred = Promise.pending();
+
+function promiseGenerator(){
+    return myDeferred.promise;
+}
+
+var promise = promiseGenerator();
+
+promise
+    .then(function(result){
+        console.log(result);
+        return 'hello2';
+    })
+    .then(function(result){
+        console.log(result);
+        return 'hello3';
+    })
+    .done(function(result){
+        console.log(result);
+    });
+
+myDeferred.fulfill('hello1');
+
+//</script>
+
