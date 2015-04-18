@@ -1,0 +1,20 @@
+//<script>
+
+f1 = function() {
+    console.log('args: ', arguments);
+    console.log('this: ', this);
+};
+
+f1('a'); // args: ["a"]
+         // this: window
+
+f2 = f1.bind({x:'x'});
+f2('b'); // args: ["b"]
+         // this: OBject {x: "x"}
+
+f3 = f1.bind({x:'x'}, 'm', 'n');
+f3('c'); // args: ["m", "n", "c"]
+         // this: Object {x: "x"}
+
+//</script>
+
