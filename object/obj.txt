@@ -7,17 +7,16 @@ Anything that is not the following is an object:
     null
     undefined
 
-three categories of objects:
+Three categories of objects:
 
     1. Navtive: defined by ECMA specification
     2. Hosted:  defined by host enviroment within which the JS interpreter is embeded.
     3. User-definded
 
-two categories of properties:
+Two categories of properties:
 
     1. own property
     2. inherited property
-
 
 Object also has attributes associated with it:
 
@@ -82,4 +81,43 @@ and, (3) attributes associate to that properties:
 
 
 --------------------------------------------------------------------
+
+
+Summary
+
+    Property of an object:
+    ----------------------
+
+    An object has properties, a property has a name and a set of 4 attributes.
+
+    The properties on an object, can either be "data property" or "accessor property".
+
+    If the property is a data property, the 4 attributes are:
+
+        1. value attribute
+        2. writable attribute
+        3. enumerable attribute
+        4. configurable attribute
+
+    If the property is a accessor property, the 4 attributes are:
+
+        1. get method
+        2. set method
+        3. enumerable attribute
+        4. configurable attribute
+
+    Note that accesor property does not have writable attribute, its writability is
+    determined by the presence/absence of setter method.
+
+    A property of an object can either located on itself (own property) or located in its
+    parent property (inherited property)
+
+    Attribute of an Object:
+    -----------------------
+
+    In addition to properties, an object also has a set of 3 attribute (ECMA 5):
+
+        1. prototype    : reference to other object
+        2. class        : a string to categorized the type
+        3. extensible   : whether new properties may be addded
 
