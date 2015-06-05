@@ -1,5 +1,5 @@
 
-Anything that is not the following is an object:
+Anything value that is not the following is an object:
 
     string
     number
@@ -9,9 +9,11 @@ Anything that is not the following is an object:
 
 Three categories of objects:
 
-    1. Navtive: defined by ECMA specification
-    2. Hosted:  defined by host enviroment within which the JS interpreter is embeded.
-    3. User-definded
+    1. Navtive: Defined by ECMA specification such as Array, functions,
+                datas, and regular expression.
+    2. Hosted:  Defined by host enviroment within which the JS
+                interpreter is embeded (such as the HTMLElement).
+    3. User-definded: Created by executing user's code.
 
 Two categories of properties:
 
@@ -20,7 +22,7 @@ Two categories of properties:
 
 Object also has attributes associated with it:
 
-    object attribute (ECMA 5):
+    Object attribute (ECMA 5):
 
         prototype    : reference to other object
         class        : a string to categorized the type
@@ -95,9 +97,11 @@ Summary
     If the property is a data property, the 4 attributes are:
 
         1. value attribute
-        2. writable attribute
-        3. enumerable attribute
-        4. configurable attribute
+        2. writable attribute     : specifies whether the value can be set
+        3. enumerable attribute   : specified whether the property name can be
+                                    return in for/in loop.
+        4. configurable attribute : specified whether the property can be deleted and
+                                    its attributes can be altered.
 
     If the property is a accessor property, the 4 attributes are:
 
@@ -115,9 +119,11 @@ Summary
     Attribute of an Object:
     -----------------------
 
-    In addition to properties, an object also has a set of 3 attribute (ECMA 5):
+    In addition to properties, an object also has a set of 3 attributes (ECMA 5),
+    these attribribues are:
 
         1. prototype    : reference to other object
         2. class        : a string to categorized the type
         3. extensible   : whether new properties may be addded
+
 
