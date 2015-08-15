@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>reference gotcha</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://localhost:8001/css/lib/normalize-2.1.2.css">
+        <style media="screen" type="text/css"> </style>
+    </head>
+    <body>
+
+        <!-- HTML HERE -->
+
+        <svg id="svg" style="width:300px; height:300px; border:1px lightgray solid;"></svg>
+        <canvas id="canvas" width="300" height="300" style="border:1px lightgray solid;"></canvas>
+
+        <script src="http://localhost:8001/js/lib/lodash-v2.4.1.js"></script>
+        <script src="http://localhost:8001/js/lib/jquery-1.11.0.js"></script>
+        <script src="http://localhost:8001/js/lib/d3-3.4.13.js"></script>
+        <script>
+
+            /*
+              can you see the difference between
+                  p = {};
+                  p.b = {z:{x:'x'}};
+              and
+                  p = {};
+                  p = {b:{z:{x:'x'}}};
+             */
+
+            console.log('------------------- case 0 common knowledge, as expected');
+
+            var p = {};
+            p = {a:{b:'c'}};
+            p = {a:{b:{x:'y'}}};
+            /* {"a":{"b":{"x":"y"}}} */               console.log(JSON.stringify( p ));
+
+            var p = {};
+            p = {a:{b:'c'}};
+            p.a = {b:{x:'y'}};
+            /* {"a":{"b":{"x":"y"}}} */               console.log(JSON.stringify( p ));
+
+            var p = {};
+            p = {a:{b:'c'}};
+            p.a.b = {x:'y'};
+            /* {"a":{"b":{"x":"y"}}} */               console.log(JSON.stringify( p ));
+
+            console.log('------------------- case 1 fail');
+
+            var p = {};
+            p = {a:{b:'c1'}};
+            /* p = {"a":{"b":"c1"}} */                 console.log('before: ',  JSON.stringify(p) );
+
+            var change = function(p){
+                /* p = {"a":{"b":"c1"}} */              console.log( 'in change: ',  JSON.stringify(p) );
+                p = {a:{b:{x:'y1'}}};
+                /* p = {"a":{"b":{"x":"y1"}}} */        console.log( 'in change: ',  JSON.stringify(p) );
+            };
+            change(p);
+
+            /* p = {"a":{"b":"c1"}} */                 console.log('after: ', JSON.stringify(p), 'fail' );
+
+
+            console.log('------------------- case 2 okay');
+
+            var p = {};
+            p = {a:{b:'c2'}};
+            /* p = {"a":{"b":"c2"}} */                 console.log('before: ',  JSON.stringify(p) );
+
+            var change = function(p){
+                /* p = {"a":{"b":"c2"}} */              console.log( 'in change: ',  JSON.stringify(p) );
+                p.a = {b:{x:'y2'}};
+                /* p = {"a":{"b":{"x":"y2"}}} */        console.log( 'in change: ',  JSON.stringify(p) );
+            };
+            change(p);
+
+            /* p = {"a":{"b":{"x":"y2"}}} */                 console.log('after: ', JSON.stringify(p) );
+
+
+            console.log('------------------- case 3 fail prof');
+
+            var p = {};
+            p = {a:{b:'c3'}};
+            /* p = {"a":{"b":"c3"}} */                 console.log('before: ',  JSON.stringify(p) );
+
+            var change = function(p){
+                /* p = {"a":{"b":"c3"}} */              console.log( 'in change: ',  JSON.stringify(p) );
+                p = {a:{b:{x:'y3'}}};
+                /* p = {"a":{"b":{"x":"y3"}}} */        console.log( 'in change: ',  JSON.stringify(p) );
+                return p;
+            };
+            p = change(p);
+
+            /* p = {"a":{"b":{"x":"y3"}}} */                 console.log('after: ', JSON.stringify(p) );
+
+        </script>
+    </body>
+</html>
