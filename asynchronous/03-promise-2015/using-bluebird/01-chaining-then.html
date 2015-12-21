@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>rest and spread</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="http://localhost:8001/css/lib/normalize&#45;2.1.2.css"> -->
+    <style media="screen" type="text/css">
+    </style>
+</head>
+
+<body>
+<script src="http://localhost:8001/js/lib/babel-core--browser.js"></script>
+<script src="http://localhost:8001/js/lib/bluebird-v3.1.1.js"></script>
+<script type="text/babel">
+
+const p1 = new Promise((ff, rj)=>{
+    setTimeout( ()=>{
+        ff('done 0');
+    }, 50 );
+});
+
+p1
+    .then( (v)=>{
+        const n = 1;
+        console.log('then: ', v);
+        let i = 1000000000;
+        while (i--) { if (!i) { return 'done '+n; } }
+    })
+    .then( (v)=>{
+        const n = 2;
+        console.log('then: ', v);
+        let i = 1000000000;
+        while (i--) { if (!i) { return 'done '+n; } }
+    })
+    .then( (v)=>{
+        const n = 3;
+        console.log('then: ', v);
+        let i = 1000000000;
+        while (i--) { if (!i) { return 'done '+n; } }
+    })
+    .done( (v)=>{
+        console.log('then: ', v);
+    })
+
+</script>
+</body>
+
+</html>

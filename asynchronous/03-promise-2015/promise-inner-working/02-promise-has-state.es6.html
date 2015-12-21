@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>rest and spread</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="http://localhost:8001/css/lib/normalize&#45;2.1.2.css"> -->
+    <style media="screen" type="text/css">
+    </style>
+</head>
+
+<body>
+<script src="http://localhost:8001/js/lib/babel-core--browser.js"></script>
+<script type="text/babel">
+class Promise {
+    constructor (fn) {
+        console.log('step a, 1: ctor exec');
+        this.state = 'pending';
+        this.callback = null;
+        this.value = void 0;
+        fn(this.resolve.bind(this)); // <--- need to bind this
+    }
+    then(cb) {
+        console.log('step b, 3: then exec');
+        // then method delegate to handle_callback_exe method
+        // to decide if the callback should be executed.
+        this.handle_callback_exec(cb);
+    }
+    resolve(_value){
+        console.log('step d, 2: resolve exec');
+        // when fn() execute resolve, state is set to resolve
+        // and handle is then allow to execute teh callback
+        this.state = 'resolved';
+        this.value = _value;
+        if (this.callback) this.handle_callback_exec(this.callback);
+    }
+    handle_callback_exec(cb) {
+        if (this.state === 'pending') {
+            console.log('step c: handle_callback_exec, is pending');
+            console.log('is pending')
+            this.callback = cb;
+            return;
+        } else if (this.state === 'resolved') {
+            console.log('step e, 4: handle_callback_exec, is resolved');
+            cb(this.value);
+        }
+    }
+};
+
+const p = new Promise((resolve) => {
+    setTimeout(()=>{ resolve('done, resolved, completed') }, 2000)
+    // resolve('done, resolved, completed');
+});
+
+const myCb = (v)=>{console.log(v)};
+p.then(myCb);
+
+// :: WITHOUT SETTIME OUT, then() is exec AFTER resolve()
+//      step a, 1: ctor exec
+//      step d, 2: resolve exec
+//      step b, 3: then exec
+//      step e, 4: handle_callback_exec, is resolved
+//      done, resolved, completed
+
+// :: WITH SETTIME-OUT, then() is exec BEFORE resolve()
+//      step a, 1: ctor exec
+//      step b, 3: then exec
+//      step c: handle_callback_exec, is pending
+//      is pending
+//      step d, 2: resolve exec
+//      step e, 4: handle_callback_exec, is resolved
+//      done, resolved, completed
+
+
+// caller can invoke then() whenever they want, and the callee can
+// invoke resolve() whenever they want.
+// THE ORDER IN WHICH WE WORK WITH THEM DOESN’T MATTER.
+
+
+// =============================================
+// This system allows us to call then() as many times as we want
+// we will always get the same value back
+
+// HOWEVER !!!!
+// If the opposite happens: ie the caller calls then() multiple
+// times before resolve().... will not result in same value.
+
+
+</script>
+</body>
+
+</html>
