@@ -30,13 +30,14 @@ Date.parse()
         00:00:00 UTC or NaN if the string is unrecognised or
         contains illegal date values (e.g. 2015-02-31).
 
-    [!] Given a date string of
+    [!] Given a date string of                                                //@TODO
             "March 7, 2014",
-        parse() assumes a local time zone, but given an ISO format
-        such as
+        parse() assumes a local time zone,
+        However, if you give it an ISO format such as
             "2014 03-07"
         it will assume a time zone of UTC for ES5 or local
         for ECMAScript 2015.
+
 
 Date Constructor
 ================
@@ -73,12 +74,57 @@ Date Constructor
             Missing optional arguments are either set to
             1 (if day is missing) or 0 for all others.
 
+
+
 How to read JS time
 ===================
-Thu Oct 01 2015 20:00:00 GMT-0400 (EDT)
-= 20:00:00UTC translate to time zone -4 (Eastern Day light)
-to get local time at zone -4, add 4 to hour 20, you get 24 which is 00:00:00
 
+    > d1 = new Date();          // instantiate at London
+    < Sat Jan 02 2016 18:21:35 GMT+0000 (WET)
+    > s1 = d1.toISOString();
+    < "2016-01-02T18:21:35.589Z"
+
+    > d2 = new Date(s1);        // instantiate at Toronto
+    < Sat Jan 02 2016 13:21:35 GMT-0500 (EST)
+    > s2 = d2.toISOString();
+    < "2016-01-02T18:21:35.589Z"
+
+    > s1 === s2 // true  // toISO always specified in UTC
+    > d1 === d2 // false
+
+    Sat Jan 02 2016 13:21:35 GMT-0500 (EST)
+                    ^^          ^^^
+                    t_l         tz (include the sign)
+
+    t_l = d1.getHour() = d2.getHour()  // local hour; return 18 at London, return 13 at Toronto
+    t = d1.UTCHour() = d2.UTCHour()    // UTC hour; always 18
+
+    t_l - (tz) = t_utc
+    13  - (-5) = 18
+
+    t_offset = d1.getTimezoneOffset() === d2.getTimezoneOffset();  // return 0 at London, return 300min at Toronto
+    t_offset = t_l - t_utc
+    t_offset/60 = 5hour
+
+
+
+to Method of data object
+========================
+    d = new Date()          Fri Jan 01 2016 16:23:21 GMT-0500 (EST)
+
+    d.toString()            "Fri Jan 01 2016 16:23:21 GMT-0500 (EST)"
+    d.toTimeString()                        "16:23:21 GMT-0500 (EST)"
+    d.toDateString()        "Fri Jan 01 2016"
+
+    d.toJSON()              "2016-01-01T21:23:21.473Z"
+    d.toISOString()         "2016-01-01T21:23:21.473Z"
+
+    d.toGMTString()         "Fri, 01 Jan 2016 21:23:21 GMT"
+    d.toUTCString()         "Fri, 01 Jan 2016 21:23:21 GMT"
+
+    d.toLocaleString()      "1/1/2016, 4:23:21 PM"
+    d.toLocaleDateString()  "1/1/2016"
+    d.toLocaleTimeString()            "4:23:21 PM"
 
 
 
