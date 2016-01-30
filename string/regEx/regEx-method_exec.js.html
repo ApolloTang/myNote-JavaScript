@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>aa</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://localhost:8001/css/lib/normalize-2.1.2.css">
+    <style media="screen" type="text/css">
+        /* css here */
+    </style>
+</head>
+
+<body>
+    <script src="http://localhost:8001/js/lib/lodash-v2.4.1.js"></script>
+    <!-- <script src="http://localhost:8001/js/lib/jquery&#45;1.11.0.js"></script> -->
+    <!-- <script src="http://localhost:8001/js/lib/d3&#45;3.4.13.js"></script> -->
+
+<script>
+
+var matches;
+matches= /This (is (a sentence))/.exec('match nothing');
+console.log( matches);                           // null  <-- no match
+
+
+                                       //01234567890123
+matches = /This (is (a sentence))/.exec('Cat and Dog. This is a sentence. ');
+console.log( matches);
+// [
+//   "This is a sentence",                       // matches[0] -> entire match
+//   "is a sentence",                            // matches[1] -> 1st capture
+//   "a sentence",                               // matches[2] -> 2nd capture
+//   index: 13,                                  // match start at 14th char
+//   input: "Cat and Dog. This is a sentence. "  // the original string
+// ]
+
+
+// Effect of g flag
+// ================
+
+         //v   v
+         //    v   v
+         //        v   v
+         //            v   v
+         //0123456789012345
+var str = 'cat cat cat cat ';
+var rgx = /cat\s/g;
+var m;
+m = rgx.exec(str);
+console.log(m, rgx.lastIndex); // ["cat ", index: 0, input: "cat cat cat cat "] 4
+
+m = rgx.exec(str);
+console.log(m, rgx.lastIndex); // ["cat ", index: 4, input: "cat cat cat cat "] 8
+
+m = rgx.exec(str);
+console.log(m, rgx.lastIndex); // ["cat ", index: 8, input: "cat cat cat cat "] 12
+
+m = rgx.exec(str);
+console.log(m, rgx.lastIndex); // ["cat ", index: 12, input: "cat cat cat cat "] 16
+console.log('- - - - - - - - - -');
+
+// no g flag
+//-----------
+var str = 'cat cat cat cat ';
+var rgx = /cat\s/;
+var m;
+m = rgx.exec(str);
+console.log(m, rgx.lastIndex); // ["cat ", index: 0, input: "cat cat cat cat "] 0
+
+m = rgx.exec(str);
+console.log(m, rgx.lastIndex); // ["cat ", index: 0, input: "cat cat cat cat "] 0
+
+
+</script>
+
+</body>
+
+</html>
