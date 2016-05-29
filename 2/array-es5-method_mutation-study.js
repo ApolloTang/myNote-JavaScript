@@ -102,7 +102,7 @@ immutability of ES5 array method
         // with no argument, a.slice() returns shallow copy of the array it operate on
 
         var a = [1,2, {a:'a'}];
-        var a_copy = a.slice();  // b is a shallow copy of a
+        var a_copy = a.slice();  // Shallow copy of a
 
         // purposely mutate elements in a_copy
         a_copy.forEach( function(el, k, _a_copy) {
@@ -116,7 +116,8 @@ immutability of ES5 array method
         console.log(JSON.stringify(a));       // [1,2,{"a":"z"}]     > a[1,2] is preserved, a[3] is mutated, ∵ it is a shallow copy
         console.log(JSON.stringify(a_copy));  // [100,200,{"a":"z"}]
 
-        // along syntax
+        // long syntax
+        // ```````````
         var a = [1,2, {a:'a'}];
         var a_copy = Array.prototype.slice.call(a);
         console.log(JSON.stringify(a_copy));         //[1,2,{"a":"a"}]
