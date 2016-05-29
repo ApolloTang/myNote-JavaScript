@@ -1,26 +1,59 @@
-immutability of ES6 array method
+immutability of ES5 array method
 ================================
 
     forEach()
     ---------
-        var a = [1,2,3];
-        var b = a.forEach(function(v,k,_a) {
-            v = v*1000;   // will not mutate a;
-        });
-        console.log(a); // [1,2,3]
-        console.log(b); // undefined
 
-        var a = [1,2,3];
-        var b = a.forEach(function(v,k,_a) {
-            _a[k] = _a[k]*1000;   // will mutate a;
-        });
-        console.log(a); // [1000,2000,3000]
-        console.log(b); // undefined
+        // Synopsis
+        //
+        //    • Element of premitive value are copied and passed into the iterator
+        //    • If element is non-premitive value, reference
+        //      address are copied and passed into the iterator
+        //    • forEach() always return 'undefined'
+
+        var a = [1,2, {a:'a'}];
+        console.log('before: ', JSON.stringify(a)); // [1,2,{"a":"a"}]
+
+        var iterator = function(el, k, _a) {
+            if ( typeof el === 'number' ) {
+               el = el*100; // will NOT multete shallow premitive element in a
+            } else {
+                el.a = 'z'; // will MULTATE deep object
+            }
+        };
+        var returnValue = a.forEach(iterator);
+
+        console.log('after: ', JSON.stringify(a)); // [1,2,{"a":"z"}]
+        console.log('returnValue: ', returnValue); // undefined
+
+        console.log(' - - - - - - - - - - - - - - - - - - - -')
+
+        // Synopsis
+        //
+        //   • The array operated on is passed into the interator's 3rd argument,
+        //     ∴ changed make on any element from 3rd arguement
+        //     will multate the array being operated.
+        //
+
+        var a = [1,2, {a:'a'}];
+        console.log('before: ', JSON.stringify(a)); // [1,2,{"a":"a"}]
+
+        var iterator = function(el, k, _a) {
+            if ( typeof el === 'number' ) {
+                _a[k] = el*100;
+            } else {
+                _a[k].a = 'z';
+            }
+        };
+        a.forEach(iterator);
+
+        console.log('after: ', JSON.stringify(a)); // [1,2,{"a":"z"}]
 
 
 
     map()
     -----
+
         var a = [1,2,3];
         var b = a.map(function(v,k,_a) {
             v = v*1000;   // will not mutate a;
@@ -40,23 +73,53 @@ immutability of ES6 array method
 
     filter()
     --------
-        var a = [1,2,3];
-        var b = a.filter(function(v,k,_a) {
-            v = v*1000;   // will not mutate a;
-            return false;
+
+        // Synopsis
+        //
+        //    • Element of premitive value are copied and passed into the predicate
+        //    • If element is non-premitive value, reference
+        //      address are copied and passed into the predicate
+
+        var a = [1,2, {a:'a'}];
+        var predicate = function( el,k, _a) {
+            if ( typeof el === 'number' ) {
+                el = el*100; // will NOT multete shallow premitive element in a
+            } else {
+                el.a = 'z';  // will MULTATE deep object
+            }
+            return true;   // none of the element are filtered when predicate return 'true'
+        };
+
+        var a_copy = a.filter(predicate);
+        console.log(JSON.stringify(a));      // [1,2,{"a":"z"}]
+        console.log(JSON.stringify(a_copy)); // [1,2,{"a":"z"}]
+
+
+    slice()
+    -------
+
+        // Synopsis
+        // with no argument, a.slice() returns shallow copy of the array it operate on
+
+        var a = [1,2, {a:'a'}];
+        var a_copy = a.slice();  // b is a shallow copy of a
+
+        // purposely mutate elements in a_copy
+        a_copy.forEach( function(el, k, _a_copy) {
+            if ( typeof el === 'number' ) {
+                _a_copy[k] = _a_copy[k]*100;
+            } else {
+                _a_copy[2].a = 'z';
+            }
         });
-        console.log(a); // [1,2,3]
-        console.log(b); // []
 
+        console.log(JSON.stringify(a));       // [1,2,{"a":"z"}]     > a[1,2] is preserved, a[3] is mutated, ∵ it is a shallow copy
+        console.log(JSON.stringify(a_copy));  // [100,200,{"a":"z"}]
 
-        var a = [1,2,3];
-        var b = a.filter(function(v,k,_a) {
-            _a[k] = _a[k]*1000; // will mutate a;
-            return false;
-        });
-        console.log(a); // [1000,2000,3000]
-        console.log(b); // []
-
+        // along syntax
+        var a = [1,2, {a:'a'}];
+        var a_copy = Array.prototype.slice.call(a);
+        console.log(JSON.stringify(a_copy));         //[1,2,{"a":"a"}]
 
 
 
