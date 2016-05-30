@@ -16,7 +16,7 @@ immutability of ES5 array method
 
         var iterator = function(el, k, _a) {
             if ( typeof el === 'number' ) {
-               el = el*100; // will NOT multete shallow premitive element in a
+                el = el*100; // will NOT multete shallow premitive element in a
             } else {
                 el.a = 'z'; // will MULTATE deep object
             }
@@ -89,10 +89,31 @@ immutability of ES5 array method
             }
             return true;   // none of the element are filtered when predicate return 'true'
         };
-
         var a_copy = a.filter(predicate);
+
         console.log(JSON.stringify(a));      // [1,2,{"a":"z"}]
         console.log(JSON.stringify(a_copy)); // [1,2,{"a":"z"}]
+
+
+        // Synopsis
+        //
+        //    • The return array is a new array.
+        //    • element with premitive value are copied; element non-premitive value their
+        //      reference are copied.
+
+        var interator = function(el,k, _a_copy) {
+            // attempt to mutate the result, a_copy
+            if ( typeof el === 'number' ) {
+                _a_copy[k] = a_copy[k]*100;
+            } else {
+                _a_copy[k].a = 'z';
+            }
+        };
+        a_copy.forEach(interator);
+
+        console.log(JSON.stringify(a_copy)); // [100,200,{"a":"z"}] a_copy modified
+        console.log(JSON.stringify(a));      // [1,2,{"a":"z"}]     but original's premitive values \
+                                             //                     unalter ( but deep value has been altered)
 
 
     slice()
