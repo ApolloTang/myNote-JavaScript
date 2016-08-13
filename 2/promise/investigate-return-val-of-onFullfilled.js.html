@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>investigate-return-val-of-onFullfilled</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://localhost:8001/css/lib/normalize-2.1.2.css">
+    <style media="screen" type="text/css">
+        /* css here */
+    </style>
+</head>
+
+<body>
+<button id='b1'>1</button >
+<script src="http://localhost:8001/js/lib/lodash-v2.4.1.js"></script>
+<script src="http://localhost:8001/js/lib/jquery-1.11.0.js"></script>
+<script>
+
+const b1 = document.getElementById('b1');
+
+const p1 = new Promise(
+    (rs, rj)=>{
+        b1.addEventListener('click', ()=>{
+            console.log('click1')
+            rs('done');
+        });
+    }
+);
+
+p1.then(
+    (v)=>{
+        console.log('then 1: ', v);
+        let wait = 9e+8;
+        while(wait--);
+        return 'done2'
+        }
+).then(
+    (v)=>{console.log('then 2: ', v)}
+)
+</script>
+
+</body>
+
+</html>
